@@ -21,7 +21,7 @@ import javax.validation.Valid;
 import java.security.Security;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("auth")
 public class AuthController {
     @Autowired private AuthenticationManager authManager;
     @Autowired private UserRepository userRepository;

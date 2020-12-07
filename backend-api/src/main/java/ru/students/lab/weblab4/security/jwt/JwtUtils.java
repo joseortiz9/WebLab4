@@ -18,10 +18,10 @@ public class JwtUtils {
     private static final Logger LOG = LoggerFactory.getLogger(JwtUtils.class);
     private static final SignatureAlgorithm HASH_ALGO = SignatureAlgorithm.HS512;
 
-    @Value("${weblab4.app.jwtSecret}")
+    @Value("${weblab.app.jwtSecret}")
     private String jwtSecret;
 
-    @Value("${weblab4.app.jwtExpirationMs}")
+    @Value("${weblab.app.jwtExpirationMs}")
     private int jwtExpirationMs;
 
 
