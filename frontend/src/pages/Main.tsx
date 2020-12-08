@@ -1,6 +1,6 @@
 import React, {FC, Suspense} from "react";
 import Loader from "../components/Loader";
-import Container from "../components/Container";
+import Container from "../components/container/Container";
 
 
 const Main:FC = ({ children }) => {

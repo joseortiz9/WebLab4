@@ -1,23 +1,32 @@
-import React, {Component, FC} from "react";
+import React from "react";
 import {useSelector} from "react-redux";
-import {Redirect, Route} from "react-router";
+import {Redirect, Route, RouteProps} from "react-router";
 
-import {IDefaultRouteHoC} from "./SimpleRoute";
-import Main from "../pages/Main";
+import {Main} from "../pages";
 
-const PrivateRoute: FC<IDefaultRouteHoC> = ({ component, ...rest }) => {
-    const isAuthenticated = true;//useSelector(state => isLoggedIn(state));
+interface PrivateRouteProps extends RouteProps {
+    component: any;
+}
+
+const PrivateRoute = ({ component: Component, ...rest }: PrivateRouteProps) => {
+    const isAuthenticated = true;//useSelector(state => isLoggedIn(state))
+
     return (
-        <Route {...rest} render={props => (
-            isAuthenticated ? (
-                <Main>
-                    <Component {...props} />
-                </Main>
-            ) : (
-                <Redirect to='/login' />
-            )
-        )} />
-    )
+        <Route
+            {...rest}
+            render={(routeProps) =>
+                isAuthenticated ? (
+                    <Main>
+                        <Component {...routeProps} />
+                    </Main>
+                ) : (
+                    <Redirect
+                        to="/login"
+                    />
+                )
+            }
+        />
+    );
 };
 
 export default PrivateRoute;

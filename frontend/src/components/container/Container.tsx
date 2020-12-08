@@ -1,7 +1,9 @@
 import React, {FC} from "react";
 
+import "./Container.scss";
+
 const Container: FC = ({children}) => (
-    <div style={{ background: '#b3b3b3', padding: 0, margin: 80, }}>
+    <div className="container">
         {children}
     </div>
 );

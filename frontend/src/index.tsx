@@ -1,17 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import reportWebVitals from './reportWebVitals';
 import {Provider} from "react-redux";
 import store from "./store";
-import Routes from "./routes/Routes";
-import Navbar from "./components/Navbar";
-
+import App from "./App";
 
 ReactDOM.render(
     <Provider store={store}>
-        <Navbar />
-        <Routes />
+        <App />
     </Provider>,
   document.getElementById('root')
 );
