@@ -7,20 +7,21 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.web.bind.annotation.*;
 import ru.students.lab.weblab4.models.User;
 import ru.students.lab.weblab4.payload.AuthRequest;
 import ru.students.lab.weblab4.payload.JwtResponse;
 import ru.students.lab.weblab4.repositories.UserRepository;
 import ru.students.lab.weblab4.security.jwt.JwtUtils;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.security.Security;
 
 @RestController
+@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE})
 @RequestMapping("auth")
 public class AuthController {
     @Autowired private AuthenticationManager authManager;
@@ -51,6 +52,17 @@ public class AuthController {
                 passEncoder.encode(registerRequest.getPassword()));
         userRepository.save(newUser);
 
-        return ResponseEntity.ok(new String("User registered Successfully!"));
+        return login(registerRequest);
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null) {
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+            return ResponseEntity.ok(new String("Good Bye!"));
+        }
+
+        return ResponseEntity.badRequest().body(new String("Problem logging out"));
     }
 }

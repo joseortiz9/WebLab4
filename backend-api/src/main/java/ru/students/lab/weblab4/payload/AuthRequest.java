@@ -2,9 +2,11 @@ package ru.students.lab.weblab4.payload;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class AuthRequest {
     @NotBlank @NotNull
+    @Size(min = 3)
     private String username, password;
 
     public AuthRequest(String username, String password) {

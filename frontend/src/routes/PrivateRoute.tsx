@@ -3,13 +3,15 @@ import {useSelector} from "react-redux";
 import {Redirect, Route, RouteProps} from "react-router";
 
 import {Main} from "../pages";
+import {isLoggedIn} from "../store/ducks/Auth";
+import {AppState} from "../store/ducks";
 
 interface PrivateRouteProps extends RouteProps {
     component: any;
 }
 
 const PrivateRoute = ({ component: Component, ...rest }: PrivateRouteProps) => {
-    const isAuthenticated = true;//useSelector(state => isLoggedIn(state))
+    const isAuthenticated = useSelector((state: AppState) => isLoggedIn(state))
 
     return (
         <Route

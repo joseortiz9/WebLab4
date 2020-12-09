@@ -1,9 +1,14 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
 import "./Navbar.scss";
+import {useDispatch, useSelector} from "react-redux";
+import {isLoggedIn, loggedUser, logout} from "../../store/ducks/Auth";
+import {AppState} from "../../store/ducks";
 
 const Navbar = () => {
-    const isAuthenticated = false;//useSelector(state => isLoggedIn(state))
+    const dispatch = useDispatch();
+    const isAuthenticated = useSelector((state: AppState) => isLoggedIn(state));
+    const authSession = useSelector((state: AppState) => loggedUser(state));
     return (
         <nav>
             <ul>
@@ -14,7 +19,7 @@ const Navbar = () => {
                 {isAuthenticated ? (
                     <>
                         <li><NavLink to="/">Home</NavLink></li>
-                        <li>Logout</li>
+                        <li><a href="#" onClick={() => dispatch(logout(authSession))}>Logout</a></li>
                     </>
                 ) : (
                     <>
