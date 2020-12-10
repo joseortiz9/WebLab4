@@ -5,6 +5,7 @@ import {Redirect, Route, RouteProps} from "react-router";
 import {Main} from "../pages";
 import {isLoggedIn} from "../store/ducks/Auth";
 import {AppState} from "../store/ducks";
+import Container from "../components/container/Container";
 
 interface PrivateRouteProps extends RouteProps {
     component: any;
@@ -18,9 +19,9 @@ const PrivateRoute = ({ component: Component, ...rest }: PrivateRouteProps) => {
             {...rest}
             render={(routeProps) =>
                 isAuthenticated ? (
-                    <Main>
+                    <Container>
                         <Component {...routeProps} />
-                    </Main>
+                    </Container>
                 ) : (
                     <Redirect
                         to="/login"

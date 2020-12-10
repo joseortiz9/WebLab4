@@ -9,10 +9,7 @@ const AuthForm = () => {
     const isFetching = useSelector((state: AppState) => state.auth.fetching);
     //const errorStatus = useSelector((state: AppState) => state.auth.error);
     const hasError = useSelector((state: AppState) => isError(state));
-    const [inputs, setInputs] = useState({
-        username: '',
-        password: ''
-    });
+    const [inputs, setInputs] = useState({ username: '', password: '' });
     const { username, password } = inputs;
     const [requestType, setRequestType] = useState('login');
     const [hasLocalError, setHasLocalError] = useState(false);
@@ -46,14 +43,14 @@ const AuthForm = () => {
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label>Username</label>
-                    <input type="text" name="username" value={username} onChange={handleChange} className={'auth-input' + (hasLocalError && hasError ? ' is-invalid' : '')} />
+                    <input type="text" name="username" value={username} onChange={handleChange} className={'default-text-input' + (hasLocalError && hasError ? ' is-invalid' : '')} />
                     {hasLocalError &&
                     <div className="invalid-feedback">Username is required and should be more than 3 symbols</div>
                     }
                 </div>
                 <div className="form-group">
                     <label>Password</label>
-                    <input type="password" name="password" value={password} onChange={handleChange} className={'auth-input' + (hasLocalError && hasError ? ' is-invalid' : '')} />
+                    <input type="password" name="password" value={password} onChange={handleChange} className={'default-text-input' + (hasLocalError && hasError ? ' is-invalid' : '')} />
                     {hasLocalError &&
                     <div className="invalid-feedback">Password is required and should be more than 3 symbols</div>
                     }

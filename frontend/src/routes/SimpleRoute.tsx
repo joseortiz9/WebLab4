@@ -1,16 +1,16 @@
 import React from "react";
 import {Route} from "react-router";
 
-import {Main} from "../pages";
+import Container from "../components/container/Container";
 
 const SimpleRoute = ({ component: Component, ...rest }: any) => {
     return (
         <Route
             {...rest}
             render={(routeProps) =>
-                <Main>
+                <Container>
                     <Component {...routeProps} />
-                </Main>
+                </Container>
             }
         />
     );

@@ -6,7 +6,7 @@ import javax.validation.constraints.Size;
 
 public class AuthRequest {
     @NotBlank @NotNull
-    @Size(min = 3)
+    @Size(min = 3, max = 15)
     private String username, password;
 
     public AuthRequest(String username, String password) {

@@ -1,17 +1,15 @@
 package ru.students.lab.weblab4.models;
 
-import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.Objects;
 
 @Entity(name = "users")
 @NamedQuery(name = "users.findByUsername", query = "from users where username = :username")
-public class User implements Serializable, UserDetails {
+public class UserEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -21,14 +19,20 @@ public class User implements Serializable, UserDetails {
     private String username;
     private String password;
 
-    public User() {}
+    public UserEntity() {}
 
-    public User(String username, String password) {
+    public UserEntity(String username, String password) {
         this.username = username;
         this.password = password;
     }
 
-    public User(Long id, String username, String password) {
+    public UserEntity(UserDetails authUser) {
+        this.username = authUser.getUsername();
+        this.password = authUser.getPassword();
+    }
+
+
+    public UserEntity(Long id, String username, String password) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -55,32 +59,10 @@ public class User implements Serializable, UserDetails {
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
-
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
+        UserEntity user = (UserEntity) o;
         return Objects.equals(username, user.username) &&
                 Objects.equals(password, user.password);
     }
@@ -92,7 +74,7 @@ public class User implements Serializable, UserDetails {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "UserEntity{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
                 '}';

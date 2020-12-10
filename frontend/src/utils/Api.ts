@@ -1,11 +1,11 @@
 import axios, {AxiosPromise, AxiosResponse, Method} from 'axios';
 import {ApiHost, ApiVersion} from "./config";
-import {AuthSession} from "../models/AuthSession";
+import {IAuthSession} from "../models/IAuthSession";
 
 interface IApiProps {
     method: Method
     requestUrl: string
-    authSession?: AuthSession | null
+    authSession?: IAuthSession | null
     data?: { [key: string]: any }
     headers?: { [key: string]: any }
 }
@@ -14,7 +14,7 @@ export const api = (apiProps: IApiProps)
     : AxiosPromise => {
 
     const {method, requestUrl, headers, data} = apiProps;
-    return axios({
+    const request = axios({
         method: method,
         url: `${ApiHost}/${ApiVersion}/${requestUrl}`,
         headers: {
@@ -24,11 +24,13 @@ export const api = (apiProps: IApiProps)
         },
         data: data
     });
+    console.log(request);
+    return request;
 };
 
 export const authApi = ({method, requestUrl, authSession, data = {}, headers = {}}: IApiProps)
     : AxiosPromise => {
 
-    headers.Authorization = authSession?.token;
+    headers.Authorization = 'Bearer ' + authSession?.token;
     return api({method, requestUrl, authSession, data, headers});
 };

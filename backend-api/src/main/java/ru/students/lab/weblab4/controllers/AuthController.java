@@ -6,10 +6,11 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.*;
-import ru.students.lab.weblab4.models.User;
+import ru.students.lab.weblab4.models.UserEntity;
 import ru.students.lab.weblab4.payload.AuthRequest;
 import ru.students.lab.weblab4.payload.JwtResponse;
 import ru.students.lab.weblab4.repositories.UserRepository;
@@ -18,10 +19,9 @@ import ru.students.lab.weblab4.security.jwt.JwtUtils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.security.Security;
 
 @RestController
-@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE})
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("auth")
 public class AuthController {
     @Autowired private AuthenticationManager authManager;
@@ -38,7 +38,7 @@ public class AuthController {
         return ResponseEntity.ok(
                 new JwtResponse(
                         jwtUtils.generateJwtToken(authentication),
-                        ((User) authentication.getPrincipal()).getUsername()));
+                        ((UserDetails) authentication.getPrincipal()).getUsername()));
     }
 
 
@@ -48,12 +48,13 @@ public class AuthController {
             return ResponseEntity.badRequest().body(new String("Error: Username is already taken!"));
         }
 
-        User newUser = new User(registerRequest.getUsername(),
+        UserEntity newUser = new UserEntity(registerRequest.getUsername(),
                 passEncoder.encode(registerRequest.getPassword()));
         userRepository.save(newUser);
 
         return login(registerRequest);
     }
+
 
     @PostMapping("/logout")
     public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response) {

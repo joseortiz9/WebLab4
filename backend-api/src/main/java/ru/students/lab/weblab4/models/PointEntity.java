@@ -11,7 +11,7 @@ import java.util.Objects;
 
 @Entity(name = "points")
 @NamedQuery(name = "points.findByUser", query = "from points where user = :user order by id asc")
-public class Point implements Serializable {
+public class PointEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -24,13 +24,13 @@ public class Point implements Serializable {
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private UserEntity user;
 
-    public Point() {
+    public PointEntity() {
         this.createTime = LocalDateTime.now();
     }
 
-    public Point(double x, double y, double r, User user) {
+    public PointEntity(double x, double y, double r, UserEntity user) {
         this();
         this.x = x;
         this.y = y;
@@ -39,22 +39,23 @@ public class Point implements Serializable {
         checkInsideFunc();
     }
 
-    public Point(double x, double y, double r, boolean result, LocalDateTime createTime, User user) {
+    public PointEntity(double x, double y, double r, boolean result, LocalDateTime createTime, UserEntity user) {
         this.x = x;
         this.y = y;
         this.r = r;
         this.result = result;
         this.createTime = createTime;
         this.user = user;
+        checkInsideFunc();
     }
 
     public void checkInsideFunc() {
         if (x == null || y == null || r == null)
             throw new NullPointerException();
 
-        this.result = (x >= 0 && y >= 0 && y <= -x + r/2) //linear function
-                || (y <= 0 && x <= 0 && y >= -Math.sqrt(r * r / 4 - x * x)) //circular function
-                || (y <= 0 && x >= 0 && y >= -r/2 && x <= r); //lines on r
+        this.result = (x >= 0 && y >= 0 && y <= -(2*x) + r) //linear function
+                || (y >= 0 && x <= 0 && x >= -Math.sqrt(r * r - y * y)) //circular function
+                || (y <= 0 && x <= 0 && y >= -r && x >= -r); //lines on r
     }
 
     public String getCreatedTimeFormatted() {
@@ -103,7 +104,7 @@ public class Point implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Point point = (Point) o;
+        PointEntity point = (PointEntity) o;
         return Objects.equals(x, point.x) &&
                 Objects.equals(y, point.y) &&
                 Objects.equals(r, point.r) &&
@@ -119,7 +120,7 @@ public class Point implements Serializable {
 
     @Override
     public String toString() {
-        return "Point{" +
+        return "PointEntity{" +
                 "id=" + id +
                 ", x=" + x +
                 ", y=" + y +

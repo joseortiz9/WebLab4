@@ -1,4 +1,4 @@
-import {AuthSession} from "../../models/AuthSession";
+import {IAuthSession} from "../../models/IAuthSession";
 import {AppState} from "./index";
 import {Dispatch} from "redux";
 import {LocalAuthID} from "../../utils/config";
@@ -9,9 +9,9 @@ import history from "../../routes/history";
 
 /* ---------------------- Types ------------------------- */
 
-export const REQUEST_START = 'users/request-start';
-export const REQUEST_FAILURE = 'users/request-failure';
-export const REQUEST_SUCCESS = 'users/request-success';
+export const AUTH_REQUEST_START = 'users/request-start';
+export const AUTH_REQUEST_FAILURE = 'users/request-failure';
+export const AUTH_REQUEST_SUCCESS = 'users/request-success';
 export const LOG_OUT_REQUEST = 'users/log-out';
 
 
@@ -24,14 +24,14 @@ interface IAuthFormProps {
 /* ------------------ Action Creators ------------------- */
 
 interface IRequestStart {
-    readonly type: typeof REQUEST_START
+    readonly type: typeof AUTH_REQUEST_START
 }
 interface IRequestSuccess {
-    readonly type: typeof REQUEST_SUCCESS,
-    payload: AuthSession
+    readonly type: typeof AUTH_REQUEST_SUCCESS,
+    payload: IAuthSession
 }
 interface IRequestFailure {
-    readonly type: typeof REQUEST_FAILURE,
+    readonly type: typeof AUTH_REQUEST_FAILURE,
     payload: Error
 }
 interface ILogOut {
@@ -41,16 +41,16 @@ export type AuthActions = | IRequestStart | IRequestSuccess | IRequestFailure | 
 
 
 const fetchStart = (): IRequestStart => ({
-    type: REQUEST_START
+    type: AUTH_REQUEST_START
 });
 
-const fetchSuccess = (payload: AuthSession): IRequestSuccess => ({
-    type: REQUEST_SUCCESS,
+const fetchSuccess = (payload: IAuthSession): IRequestSuccess => ({
+    type: AUTH_REQUEST_SUCCESS,
     payload,
 });
 
 const fetchError = (payload: Error): IRequestFailure => ({
-    type: REQUEST_FAILURE,
+    type: AUTH_REQUEST_FAILURE,
     payload,
 });
 
@@ -62,7 +62,7 @@ const logOut = (): ILogOut => ({
 /* -------------------- Initial State ------------------- */
 
 type InitialState = {
-    user: AuthSession | null
+    user: IAuthSession | null
     fetching: boolean
     error: Error | null
 }
@@ -86,21 +86,20 @@ const INITIAL_STATE: InitialState = {
 
 export default function reducer(state = INITIAL_STATE, action: AuthActions) {
     switch (action.type) {
-        case REQUEST_START:
+        case AUTH_REQUEST_START:
             return {
                 ...state,
                 fetching: true
             }
-        case REQUEST_SUCCESS:
+        case AUTH_REQUEST_SUCCESS:
             return {
                 ...state,
                 user: action.payload,
                 fetching: false
             }
-        case REQUEST_FAILURE:
+        case AUTH_REQUEST_FAILURE:
             return {
                 ...state,
-                user: null,
                 error: action.payload,
                 fetching: false
             }
@@ -130,7 +129,7 @@ export const authRequest = (requestTypeUrl: string, loginInputs: IAuthFormProps)
     dispatch(fetchStart());
     return api({method: "POST" as Method, requestUrl: `auth/${requestTypeUrl}`, data: loginInputs})
         .then(res => {
-            const json = res.data as AuthSession;
+            const json = res.data as IAuthSession;
             dispatch(fetchSuccess(json));
             history.push("/");
             return Promise.resolve();
@@ -141,9 +140,9 @@ export const authRequest = (requestTypeUrl: string, loginInputs: IAuthFormProps)
         });
 };
 
-export const logout = (authSession: AuthSession | null) => (dispatch: Dispatch<AuthActions>) => {
+export const logout = (authSession: IAuthSession | null) => (dispatch: Dispatch<AuthActions>) => {
     dispatch(fetchStart());
     return authApi({method: "POST" as Method, requestUrl: 'auth/logout', authSession})
-        .then(() => dispatch(logOut()))
-        .catch(e => fetchError(e));
+        .catch(e => dispatch(fetchError(e)))
+        .finally(() => dispatch(logOut()));
 };

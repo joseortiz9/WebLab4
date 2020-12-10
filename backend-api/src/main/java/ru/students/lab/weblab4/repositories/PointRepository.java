@@ -1,12 +1,11 @@
 package ru.students.lab.weblab4.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import ru.students.lab.weblab4.models.Point;
-import ru.students.lab.weblab4.models.User;
+import ru.students.lab.weblab4.models.PointEntity;
+import ru.students.lab.weblab4.models.UserEntity;
 
 import java.util.List;
-import java.util.Optional;
 
-public interface PointRepository extends JpaRepository<Point, Long> {
-    List<Point> findByUser(User user);
+public interface PointRepository extends JpaRepository<PointEntity, Long> {
+    List<PointEntity> findByUser(UserEntity user);
 }
