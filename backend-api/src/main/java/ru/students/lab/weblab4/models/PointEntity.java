@@ -1,5 +1,6 @@
 package ru.students.lab.weblab4.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -58,6 +59,7 @@ public class PointEntity implements Serializable {
                 || (y <= 0 && x <= 0 && y >= -r && x >= -r); //lines on r
     }
 
+    @JsonIgnore
     public String getCreatedTimeFormatted() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MMM/yyyy 'at' HH:mm:ss a");
         return createTime.format(formatter);

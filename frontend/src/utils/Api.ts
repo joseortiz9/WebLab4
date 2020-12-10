@@ -1,4 +1,4 @@
-import axios, {AxiosPromise, AxiosResponse, Method} from 'axios';
+import axios, {AxiosPromise, Method} from 'axios';
 import {ApiHost, ApiVersion} from "./config";
 import {IAuthSession} from "../models/IAuthSession";
 
@@ -14,7 +14,7 @@ export const api = (apiProps: IApiProps)
     : AxiosPromise => {
 
     const {method, requestUrl, headers, data} = apiProps;
-    const request = axios({
+    return axios({
         method: method,
         url: `${ApiHost}/${ApiVersion}/${requestUrl}`,
         headers: {
@@ -24,8 +24,6 @@ export const api = (apiProps: IApiProps)
         },
         data: data
     });
-    console.log(request);
-    return request;
 };
 
 export const authApi = ({method, requestUrl, authSession, data = {}, headers = {}}: IApiProps)

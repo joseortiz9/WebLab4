@@ -1,11 +1,10 @@
 import {IAuthSession} from "../../models/IAuthSession";
 import {AppState} from "./index";
 import {Dispatch} from "redux";
-import {LocalAuthID} from "../../utils/config";
 import {api, authApi} from "../../utils/Api";
 import {Method} from "axios";
-import history from "../../routes/history";
 import {IPoint} from "../../models/IPoint";
+import history from "../../routes/history";
 
 
 /* ---------------------- Types ------------------------- */
@@ -120,12 +119,11 @@ export const fetchAllPoints = (authSession: IAuthSession | null) => (dispatch: D
     dispatch(fetchStart());
     return authApi({method: "GET" as Method, requestUrl: 'points', authSession})
         .then(res => {
-            console.log(res);
-            const points = JSON.parse(res.data) as IPoint[];
-            console.log(points);
-            dispatch(fetchAllSuccess(points))
+            dispatch(fetchAllSuccess(res.data));
         })
-        .catch(e => dispatch(fetchError(e)));
+        .catch(e => {
+            dispatch(fetchError(e));
+        });
 };
 
 
@@ -133,8 +131,7 @@ export const addPoint = (pointInputs: IPoint) => (dispatch: Dispatch<PointsActio
     dispatch(fetchStart());
     return api({method: "POST" as Method, requestUrl: 'points/add', data: pointInputs})
         .then(res => {
-            const point = JSON.parse(res.data.point) as IPoint;
-            dispatch(addPointSuccess(point))
+            dispatch(addPointSuccess(res.data.point))
         })
         .catch(error => {
             dispatch(fetchError(error));
