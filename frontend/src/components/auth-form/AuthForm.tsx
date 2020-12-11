@@ -56,14 +56,14 @@ const AuthForm = () => {
                     }
                 </div>
                 <div className="form-group">
-                    <button className="default-btn"
+                    <button className="default-btn btn-primary"
                             disabled={isFetching}
                             data-typerequest="login"
                             onClick={changeRequestType.bind(this)}
                     >
                         Login
                     </button>
-                    <button className="default-btn"
+                    <button className="default-btn btn-secondary"
                             disabled={isFetching}
                             data-typerequest="register"
                             onClick={changeRequestType.bind(this)}

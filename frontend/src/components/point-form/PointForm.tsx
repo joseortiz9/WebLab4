@@ -3,9 +3,10 @@ import {IPoint} from "../../models/IPoint";
 import {useSelector} from "react-redux";
 import {AppState} from "../../store/ducks";
 import {isError} from "../../store/ducks/Auth";
+import {IPointFormProps} from "../../pages/HomePage";
 
 
-const PointForm = () => {
+const PointForm = ({pointInput, submitPoint}: IPointFormProps) => {
     const [inputs, setInputs] = useState({ x: 0, y: 0, r: 1 });
     const { x, y, r }: IPoint = inputs;
     const hasError = useSelector((state: AppState) => isError(state));
@@ -20,10 +21,12 @@ const PointForm = () => {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        //submitPoint();
     }
 
     return (
         <>
+            <h2>Add a</h2>
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label>X: </label>
@@ -48,10 +51,10 @@ const PointForm = () => {
                 </div>
                 <div className="form-group">
                     <label>R: </label>
-                    { [1,2,3].map(item => {
+                    { [-5,-4,-3,-2,-1,0,1,2,3].map(item => {
                         return (
                             <div className="form-check-inline" key={item}>
-                                <input className="form-check-input" type="radio" onChange={handleChange} name="r" value={item} checked={item === r} />
+                                <input className="form-check-input" type="radio" onChange={handleChange} name="r" value={item} />
                                 <label className="form-check-label">{item}</label>
                             </div>
                         )})
@@ -61,7 +64,7 @@ const PointForm = () => {
                     }
                 </div>
                 <div className="form-group">
-                    <button className="default-btn" disabled={isFetching}>
+                    <button className="default-btn btn-primary btn-block" disabled={isFetching}>
                         Add
                     </button>
                 </div>

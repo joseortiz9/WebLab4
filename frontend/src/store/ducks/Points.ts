@@ -5,6 +5,7 @@ import {api, authApi} from "../../utils/Api";
 import {Method} from "axios";
 import {IPoint} from "../../models/IPoint";
 import history from "../../routes/history";
+import {ILogOut} from "./Auth";
 
 
 /* ---------------------- Types ------------------------- */

@@ -34,7 +34,7 @@ interface IRequestFailure {
     readonly type: typeof AUTH_REQUEST_FAILURE,
     payload: Error
 }
-interface ILogOut {
+export interface ILogOut {
     readonly type: typeof LOG_OUT_REQUEST,
 }
 export type AuthActions = | IRequestStart | IRequestSuccess | IRequestFailure | ILogOut;

@@ -2,8 +2,13 @@ import React from "react";
 import {IPointsArrProps} from "../../pages/HomePage";
 
 const PointsTable = (points: IPointsArrProps) => {
+
+    const parseResult = (result: boolean | undefined): string => {
+        return result ? "inside" : "outside";
+    }
+
     return(
-        <table>
+        <table className="default-table">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -22,7 +27,7 @@ const PointsTable = (points: IPointsArrProps) => {
                         <td>{point.x}</td>
                         <td>{point.y}</td>
                         <td>{point.r}</td>
-                        <td>{point.result}</td>
+                        <td>{parseResult(point.result)}</td>
                         <td>{point.createTime}</td>
                     </tr>
                 ))
