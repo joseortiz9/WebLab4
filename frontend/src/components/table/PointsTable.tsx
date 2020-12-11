@@ -2,13 +2,8 @@ import React from "react";
 import {IPointsArrProps} from "../../pages/HomePage";
 
 const PointsTable = (points: IPointsArrProps) => {
-
-    const parseResult = (result: boolean | undefined): string => {
-        return result ? "inside" : "outside";
-    }
-
     return(
-        <table className="default-table">
+        <table className="default-table table-striped table-hover">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -21,16 +16,20 @@ const PointsTable = (points: IPointsArrProps) => {
             </thead>
             <tbody>
             {
-                points.points.map(point => (
-                    <tr key={point.id}>
-                        <td>{point.id}</td>
-                        <td>{point.x}</td>
-                        <td>{point.y}</td>
-                        <td>{point.r}</td>
-                        <td>{parseResult(point.result)}</td>
-                        <td>{point.createTime}</td>
-                    </tr>
-                ))
+                points.points.map(point => {
+                    const parsedRes = point.result ? "inside" : "outside";
+                    const parsedDate = new Date(Date.parse(point.createTime)).toDateString();
+                    return(
+                        <tr key={point.id}>
+                            <td>{point.id}</td>
+                            <td>{point.x}</td>
+                            <td>{point.y}</td>
+                            <td>{point.r}</td>
+                            <td className={parsedRes}>{parsedRes}</td>
+                            <td>{parsedDate}</td>
+                        </tr>
+                    )
+                })
             }
             </tbody>
         </table>

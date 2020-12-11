@@ -1,23 +1,21 @@
-.row {
+.home-container {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
   align-items: center;
+  justify-content: space-evenly;
   width: 100%;
+  margin-bottom: 20px;
 }
 
-.column {
-  display: flex;
-  flex-direction: column;
-  flex-basis: 100%;
-  flex: 1;
+.text-align-center {
+  text-align: center;
 }
 
 @media screen and (max-width: 758px) {
-  .row {
+  .home-container {
     flex-direction: column-reverse;
-  }
-  .column {
-    flex: 1
+    &.card:last-child {
+      margin-bottom: 20px;
+    }
   }
 }

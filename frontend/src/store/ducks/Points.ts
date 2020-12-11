@@ -3,7 +3,7 @@ import {AppState} from "./index";
 import {Dispatch} from "redux";
 import {api, authApi} from "../../utils/Api";
 import {Method} from "axios";
-import {IPoint} from "../../models/IPoint";
+import {IPoint, IPointFetched} from "../../models/IPoint";
 import history from "../../routes/history";
 import {ILogOut} from "./Auth";
 
@@ -28,11 +28,11 @@ interface IRequestFailure {
 }
 interface IAddPointSuccess {
     readonly type: typeof POINT_ADD_REQUEST_SUCCESS,
-    payload: IPoint
+    payload: IPointFetched
 }
 interface IFetchAllSuccess {
     readonly type: typeof POINT_FETCH_ALL_SUCCESS,
-    payload: IPoint[]
+    payload: IPointFetched[]
 }
 
 export type PointsActions = | IRequestStart | IRequestFailure | IAddPointSuccess | IFetchAllSuccess;
@@ -47,12 +47,12 @@ const fetchError = (payload: Error): IRequestFailure => ({
     payload,
 });
 
-const addPointSuccess = (payload: IPoint): IAddPointSuccess => ({
+const addPointSuccess = (payload: IPointFetched): IAddPointSuccess => ({
     type: POINT_ADD_REQUEST_SUCCESS,
     payload,
 });
 
-const fetchAllSuccess = (payload: IPoint[]): IFetchAllSuccess => ({
+const fetchAllSuccess = (payload: IPointFetched[]): IFetchAllSuccess => ({
     type: POINT_FETCH_ALL_SUCCESS,
     payload,
 });
@@ -62,7 +62,7 @@ const fetchAllSuccess = (payload: IPoint[]): IFetchAllSuccess => ({
 /* -------------------- Initial State ------------------- */
 
 type IinitialState = {
-    points: IPoint[]
+    points: IPointFetched[]
     fetching: boolean
     error: Error | null
 }

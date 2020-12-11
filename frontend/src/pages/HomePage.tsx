@@ -5,12 +5,11 @@ import {addPoint, fetchAllPoints} from "../store/ducks/Points";
 import {AppState} from "../store/ducks";
 import {loggedUser} from "../store/ducks/Auth";
 import PointsTable from "../components/table/PointsTable";
-import {IPoint} from "../models/IPoint";
+import {IPoint, IPointFetched} from "../models/IPoint";
 import PointsCanvas from "../components/canvas/PointsCanvas";
-import Container from "../components/container/Container";
 
 export interface IPointsArrProps {
-    points: IPoint[]
+    points: IPointFetched[]
 }
 export interface IPointFormProps {
     pointInput: IPoint
@@ -49,30 +48,22 @@ const HomePage = () => {
     }
 
     return(
-        <div>
-            <Container>
-                <div className="row">
-                    <div className="column">
-                        <div className="card">
-                            <PointForm pointInput={pointInput}
-                                       setPointInput={setPointInput}
-                                       submitPoint={submitPoint} />
-                        </div>
-                    </div>
-                    <div className="column">
-                        <div className="card">
-                            <PointsCanvas pointInput={pointInput}
-                                          setPointInput={setPointInput}
-                                          submitPoint={submitPoint}
-                                          points={fetchedPoints} />
-                        </div>
-                    </div>
+        <>
+            <div className="home-container">
+                <div className="card">
+                    <PointForm pointInput={pointInput}
+                               setPointInput={setPointInput}
+                               submitPoint={submitPoint} />
                 </div>
-                <div className="row">
-                    <PointsTable points={fetchedPoints} />
+                <div className="card">
+                    <PointsCanvas pointInput={pointInput}
+                                  setPointInput={setPointInput}
+                                  submitPoint={submitPoint}
+                                  points={fetchedPoints} />
                 </div>
-            </Container>
-        </div>
+            </div>
+            <PointsTable points={fetchedPoints} />
+        </>
     );
 };
 

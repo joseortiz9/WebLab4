@@ -6,27 +6,24 @@ import {isError} from "../../store/ducks/Auth";
 import {IPointFormProps} from "../../pages/HomePage";
 
 
-const PointForm = ({pointInput, submitPoint}: IPointFormProps) => {
-    const [inputs, setInputs] = useState({ x: 0, y: 0, r: 1 });
-    const { x, y, r }: IPoint = inputs;
-    const hasError = useSelector((state: AppState) => isError(state));
-    const [hasLocalError, setHasLocalError] = useState(false);
-    const isFetching = useSelector((state: AppState) => state.auth.fetching);
+const PointForm = ({pointInput, setPointInput, submitPoint}: IPointFormProps) => {
 
+    const hasError = useSelector((state: AppState) => isError(state));
+    const isFetching = useSelector((state: AppState) => state.auth.fetching);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
-        setInputs(inputs => ({...inputs, [name]: value}));
+        setPointInput(inputs => ({...inputs, [name]: value}));
     };
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        //submitPoint();
+        submitPoint(pointInput);
     }
 
     return (
         <>
-            <h2>Add a</h2>
+            <h1 className="text-align-center">Create a point!</h1>
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label>X: </label>
@@ -38,14 +35,14 @@ const PointForm = ({pointInput, submitPoint}: IPointFormProps) => {
                             </div>
                         )})
                     }
-                    {hasLocalError &&
+                    {hasError &&
                     <div className="invalid-feedback">X is required</div>
                     }
                 </div>
                 <div className="form-group">
                     <label>Y: </label>
-                    <input type="text" name="y" value={y} onChange={handleChange} className={'default-text-input' + (hasLocalError && hasError ? ' is-invalid' : '')} />
-                    {hasLocalError &&
+                    <input type="text" name="y" value={pointInput.y} onChange={handleChange} className={'default-text-input' + (hasError && hasError ? ' is-invalid' : '')} />
+                    {hasError &&
                     <div className="invalid-feedback">Username is required and should be in [-5;5]</div>
                     }
                 </div>
@@ -59,8 +56,8 @@ const PointForm = ({pointInput, submitPoint}: IPointFormProps) => {
                             </div>
                         )})
                     }
-                    {hasLocalError &&
-                    <div className="invalid-feedback">R is required</div>
+                    {hasError &&
+                    <div className="invalid-feedback">R is required and should be in [-5;3]</div>
                     }
                 </div>
                 <div className="form-group">

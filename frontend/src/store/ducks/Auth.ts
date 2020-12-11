@@ -135,6 +135,7 @@ export const authRequest = (requestTypeUrl: string, loginInputs: IAuthFormProps)
             return Promise.resolve();
         })
         .catch(error => {
+            console.log(error.response);
             dispatch(fetchError(error));
             return Promise.reject(error);
         });

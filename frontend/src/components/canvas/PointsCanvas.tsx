@@ -7,7 +7,6 @@ const PointsCanvas = ({points, submitPoint, pointInput}: IPointsArrProps & IPoin
 
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
-
     useEffect(() => {
         const canvas = canvasRef.current;
         if (!canvas) return;

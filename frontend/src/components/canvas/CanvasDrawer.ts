@@ -1,6 +1,6 @@
-import {IPoint} from "../../models/IPoint";
+import {IPoint, IPointFetched} from "../../models/IPoint";
 
-export const drawer = (canvas: HTMLCanvasElement, valR: number, points: IPoint[]) => {
+export const drawer = (canvas: HTMLCanvasElement, valR: number, points: IPointFetched[]) => {
 
     const canvasCtx: CanvasRenderingContext2D = canvas.getContext('2d')!;
     const width = canvas.width;
@@ -33,20 +33,20 @@ export const drawer = (canvas: HTMLCanvasElement, valR: number, points: IPoint[]
     canvasCtx.strokeStyle = "rgba(255,255,255,0.8)";
     canvasCtx.fillStyle = "rgba(255,255,255,0.8)";
 
-    //circle on the left down
+    //circle on the left up
     canvasCtx.beginPath();
     canvasCtx.moveTo(getPhysicalX(0), getPhysicalY(0));
-    canvasCtx.arc(getPhysicalX(0), getPhysicalY(0), R/2, Math.PI, Math.PI/2, true);
+    canvasCtx.arc(getPhysicalX(0), getPhysicalY(0), R, 3*Math.PI/2, Math.PI, true);
     canvasCtx.closePath();
     canvasCtx.fill();
     canvasCtx.stroke();
 
-    //square in the right down
-    canvasCtx.fillRect(getPhysicalX(0), getPhysicalY(0), R, R/2);
+    //square in the left down
+    canvasCtx.fillRect(getPhysicalX(0), getPhysicalY(0), -R, R);
 
     //triangle
     canvasCtx.beginPath();
-    canvasCtx.moveTo(getPhysicalX(0), getPhysicalY(0) - R/2);
+    canvasCtx.moveTo(getPhysicalX(0), getPhysicalY(0) - R);
     canvasCtx.lineTo(getPhysicalX(0), getPhysicalY(0));
     canvasCtx.lineTo(getPhysicalX(0)+R/2, getPhysicalY(0));
     canvasCtx.closePath();
@@ -140,7 +140,7 @@ export const drawer = (canvas: HTMLCanvasElement, valR: number, points: IPoint[]
 };
 
 
-const drawSavedPoints = (canvas:HTMLCanvasElement, savedPoints: IPoint[], valR: number) => {
+const drawSavedPoints = (canvas:HTMLCanvasElement, savedPoints: IPointFetched[], valR: number) => {
     if (savedPoints == null)
         return;
 

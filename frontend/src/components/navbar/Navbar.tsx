@@ -19,7 +19,7 @@ const Navbar = () => {
                 {isAuthenticated ? (
                     <>
                         <li><NavLink to="/">Home</NavLink></li>
-                        <li><a href="#" onClick={() => dispatch(logout(authSession))}>Logout</a></li>
+                        <li><a className="default-btn" href="#" onClick={() => dispatch(logout(authSession))}>Logout</a></li>
                     </>
                 ) : (
                     <>
