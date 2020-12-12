@@ -132,10 +132,10 @@ export const authRequest = (requestTypeUrl: string, loginInputs: IAuthFormProps)
             const json = res.data as IAuthSession;
             dispatch(fetchSuccess(json));
             history.push("/");
-            return Promise.resolve();
+            return Promise.resolve(res);
         })
         .catch(error => {
-            console.log(error.response);
+            if (error.response) error.message = error.response.data;
             dispatch(fetchError(error));
             return Promise.reject(error);
         });

@@ -5,11 +5,10 @@ import {AppState} from "../../store/ducks";
 import {isError, isLoggedIn} from "../../store/ducks/Auth";
 import history from "../../routes/history";
 import Alert from "../../components/alert/Alert";
+import Card from "../../components/card/Card";
 
 const LoginPage = () => {
     const isAuthenticated = useSelector((state: AppState) => isLoggedIn(state));
-    const hasError = useSelector((state: AppState) => isError(state));
-    const error = useSelector((state: AppState) => state.auth.error);
 
     return (
         <>
@@ -17,10 +16,16 @@ const LoginPage = () => {
                 history.push("/") :
                 (
                     <>
-                        { hasError && <Alert type={"error"} content={error?.message} /> }
-                        <div className="card">
-                            <h1>WELCOME!</h1>
-                            <AuthForm />
+                        <div className="jumbotron">
+                            <h1 className="text-align-center">
+                                Tarasova Natasha - Ortiz Jose <br/> - P3232 - Var. 2832
+                            </h1>
+                        </div>
+
+                        <div className="flex-container">
+                            <Card title="WELCOME!">
+                                <AuthForm />
+                            </Card>
                         </div>
                     </>
                 )

@@ -23,7 +23,6 @@ const PointForm = ({pointInput, setPointInput, submitPoint}: IPointFormProps) =>
 
     return (
         <>
-            <h1 className="text-align-center">Create a point!</h1>
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label>X: </label>

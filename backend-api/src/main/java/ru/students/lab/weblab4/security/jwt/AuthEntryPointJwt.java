@@ -22,17 +22,21 @@ public class AuthEntryPointJwt implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException ex) throws IOException, ServletException {
         LOG.error("Unauthorized error: {}", ex.getMessage());
+        //httpServletResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized! " + ex.getMessage());
 
         httpServletResponse.setContentType(MediaType.APPLICATION_JSON_VALUE);
         httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        httpServletResponse.getOutputStream().print("Unauthorized! " + ex.getMessage());
+        httpServletResponse.getOutputStream().flush();
 
-        final Map<String, Object> body = new HashMap<>();
-        body.put("status", HttpServletResponse.SC_UNAUTHORIZED);
-        body.put("error", "Unauthorized");
-        body.put("message", ex.getMessage());
-        body.put("path", httpServletRequest.getServletPath());
+        //final Map<String, Object> body = new HashMap<>();
+        //body.put("status", HttpServletResponse.SC_UNAUTHORIZED);
+        //body.put("error", "Unauthorized");
+        //body.put("name", "Unauthorized");
+        //body.put("message", ex.getMessage());
+        //body.put("path", httpServletRequest.getServletPath());
 
-        final ObjectMapper mapper = new ObjectMapper();
-        mapper.writeValue(httpServletResponse.getOutputStream(), body);
+        //final ObjectMapper mapper = new ObjectMapper();
+        //mapper.writeValue(httpServletResponse.getOutputStream(), body);
     }
 }

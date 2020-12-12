@@ -7,6 +7,7 @@ import {loggedUser} from "../store/ducks/Auth";
 import PointsTable from "../components/table/PointsTable";
 import {IPoint, IPointFetched} from "../models/IPoint";
 import PointsCanvas from "../components/canvas/PointsCanvas";
+import Card from "../components/card/Card";
 
 export interface IPointsArrProps {
     points: IPointFetched[]
@@ -49,18 +50,18 @@ const HomePage = () => {
 
     return(
         <>
-            <div className="home-container">
-                <div className="card">
+            <div className="flex-container">
+                <Card title="Create a point!">
                     <PointForm pointInput={pointInput}
                                setPointInput={setPointInput}
                                submitPoint={submitPoint} />
-                </div>
-                <div className="card">
+                </Card>
+                <Card>
                     <PointsCanvas pointInput={pointInput}
                                   setPointInput={setPointInput}
                                   submitPoint={submitPoint}
                                   points={fetchedPoints} />
-                </div>
+                </Card>
             </div>
             <PointsTable points={fetchedPoints} />
         </>

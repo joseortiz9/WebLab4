@@ -1,5 +1,6 @@
 import React from "react";
 import {IPointsArrProps} from "../../pages/HomePage";
+import "./table.scss";
 
 const PointsTable = (points: IPointsArrProps) => {
     return(

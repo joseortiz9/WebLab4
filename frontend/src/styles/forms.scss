@@ -1,5 +1,8 @@
 .form-group {
   margin-bottom: 1rem;
+  label {
+    margin-right: 0.8rem;
+  }
 }
 .form-check-inline {
   display: inline-block;
@@ -80,6 +83,13 @@
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  &.is-invalid {
+    border-color: #dc3545;
+    &:focus {
+      border-color: #dc3545;
+      box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+    }
+  }
 }
 
 .default-text-input::-ms-expand {
@@ -244,4 +254,10 @@ fieldset:disabled a.default-btn {
 
 .btn-block + .btn-block {
   margin-top: 0.5rem;
+}
+
+.invalid-feedback {
+  margin-top: 0.25rem;
+  font-size: 80%;
+  color: #dc3545;
 }
