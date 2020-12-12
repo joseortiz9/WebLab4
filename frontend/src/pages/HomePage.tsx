@@ -1,64 +1,74 @@
 import React, {Dispatch, SetStateAction, useEffect, useState} from "react";
 import PointForm from "../components/point-form/PointForm";
 import {useDispatch, useSelector} from "react-redux";
-import {addPoint, fetchAllPoints} from "../store/ducks/Points";
+import {addPoint, fetchAllPoints, POINT_REQUEST_FAILURE} from "../store/ducks/Points";
 import {AppState} from "../store/ducks";
 import {loggedUser} from "../store/ducks/Auth";
 import PointsTable from "../components/table/PointsTable";
 import {IPoint, IPointFetched} from "../models/IPoint";
 import PointsCanvas from "../components/canvas/PointsCanvas";
 import Card from "../components/card/Card";
+import {validatePoint} from "../validators";
+
 
 export interface IPointsArrProps {
     points: IPointFetched[]
 }
 export interface IPointFormProps {
-    pointInput: IPoint
-    setPointInput: Dispatch<SetStateAction<IPoint>>
+    valR: number
+    setValR: Dispatch<SetStateAction<number>>
     submitPoint(point: IPoint): void
 }
+
 
 const HomePage = () => {
     const dispatch = useDispatch();
     const authSession = useSelector((state: AppState) => loggedUser(state));
     const fetchedPoints = useSelector((state: AppState) => state.points.points);
-    const isFetching = useSelector((state: AppState) => state.points.fetching);
-    const [pointInput, setPointInput] = useState<IPoint>({x: 0, y: 0, r: 1});
+    const [valR, setValR] = useState(1);
 
     useEffect(() => {
         dispatch(fetchAllPoints(authSession));
     }, [authSession, dispatch]);
 
 
-    const validatePoint = (point: IPoint) => {
-
-    }
-
-    function submitPoint(point: IPoint) {
-        setPointInput(point);
-
+    const isValidPoint = (point: IPoint): boolean => {
+        let msg = "";
         if (fetchedPoints.length > 0) {
             const lastQuery = fetchedPoints[fetchedPoints.length - 1];
-            if (lastQuery.x === pointInput.x && lastQuery.y === pointInput.y && lastQuery.r === pointInput.r) {
-                return;
+            if (lastQuery.x === point.x && lastQuery.y === point.y && lastQuery.r === point.r) {
+                msg = "new point same as last added";
             }
         }
-        //if (pointValidator(pointInput))
-        console.log(pointInput);
-        //dispatch(addPoint(pointInput));
+
+        msg = validatePoint(point);
+        if (msg !== "") {
+            dispatch({
+                type: POINT_REQUEST_FAILURE,
+                payload: {name: "validation", message: msg} as Error
+            });
+            return false;
+        }
+        return true;
     }
+
+
+    function submitPoint(point: IPoint) {
+        if (!isValidPoint(point))
+            return;
+        dispatch(addPoint(point, authSession));
+    }
+
 
     return(
         <>
             <div className="flex-container">
                 <Card title="Create a point!">
-                    <PointForm pointInput={pointInput}
-                               setPointInput={setPointInput}
-                               submitPoint={submitPoint} />
+                    <PointForm valR={valR} setValR={setValR} submitPoint={submitPoint} />
                 </Card>
                 <Card>
-                    <PointsCanvas pointInput={pointInput}
-                                  setPointInput={setPointInput}
+                    <PointsCanvas valR={valR}
+                                  setValR={setValR}
                                   submitPoint={submitPoint}
                                   points={fetchedPoints} />
                 </Card>

@@ -4,13 +4,12 @@ import "./alert.scss";
 interface IAlert {
     type: "success" | "info" | "error"
     content?: string
-    status?: number
 }
 
-const Alert = ({type, content, status}: IAlert) => {
+const Alert = ({type, content}: IAlert) => {
     return (
         <div className={"alert " + type}>
-            <span className="title-alert">{type} {status}: </span>
+            <span className="title-alert">{type}: </span>
             <span className="content-alert">{content}</span>
         </div>
     );

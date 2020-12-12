@@ -56,14 +56,20 @@ public class AuthController {
     }
 
 
+    @PostMapping("/check_session")
+    public ResponseEntity<?> checkSession() {
+        return ResponseEntity.ok("welcome back!");
+    }
+
+
     @PostMapping("/logout")
     public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null) {
             new SecurityContextLogoutHandler().logout(request, response, auth);
-            return ResponseEntity.ok(new String("Good Bye!"));
+            return ResponseEntity.ok("Good Bye!");
         }
 
-        return ResponseEntity.badRequest().body(new String("Problem logging out"));
+        return ResponseEntity.badRequest().body("Problem logging out");
     }
 }

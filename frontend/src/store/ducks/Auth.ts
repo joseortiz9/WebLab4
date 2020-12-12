@@ -95,7 +95,8 @@ export default function reducer(state = INITIAL_STATE, action: AuthActions) {
             return {
                 ...state,
                 user: action.payload,
-                fetching: false
+                fetching: false,
+                error: null
             }
         case AUTH_REQUEST_FAILURE:
             return {
@@ -141,9 +142,21 @@ export const authRequest = (requestTypeUrl: string, loginInputs: IAuthFormProps)
         });
 };
 
+export const checkSession = (authSession: IAuthSession | null) => (dispatch: Dispatch<AuthActions>) => {
+    dispatch(fetchStart());
+    return authApi({method: "POST" as Method, requestUrl: 'auth/check_session', authSession})
+        .catch(error => {
+            if (error.response) error.message = error.response.data;
+            dispatch(fetchError(error));
+            dispatch(logOut());
+        });
+};
+
 export const logout = (authSession: IAuthSession | null) => (dispatch: Dispatch<AuthActions>) => {
     dispatch(fetchStart());
     return authApi({method: "POST" as Method, requestUrl: 'auth/logout', authSession})
-        .catch(e => dispatch(fetchError(e)))
-        .finally(() => dispatch(logOut()));
+        .catch(error => {
+            if (error.response) error.message = error.response.data;
+            dispatch(fetchError(error));
+        }).finally(() => dispatch(logOut()));
 };

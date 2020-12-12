@@ -2,19 +2,24 @@ import React, {useState} from "react";
 import {IPoint} from "../../models/IPoint";
 import {useSelector} from "react-redux";
 import {AppState} from "../../store/ducks";
-import {isError} from "../../store/ducks/Auth";
+import {isError} from "../../store/ducks/Points";
 import {IPointFormProps} from "../../pages/HomePage";
+import Alert from "../alert/Alert";
 
 
-const PointForm = ({pointInput, setPointInput, submitPoint}: IPointFormProps) => {
+const PointForm = ({valR, setValR, submitPoint}: IPointFormProps) => {
 
     const hasError = useSelector((state: AppState) => isError(state));
-    const isFetching = useSelector((state: AppState) => state.auth.fetching);
+    const error = useSelector((state: AppState) => state.points.error);
+    const isFetching = useSelector((state: AppState) => state.points.fetching);
+    const [pointInput, setPointInput] = useState<IPoint>({x: 0, y: 0, r: valR})
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
         setPointInput(inputs => ({...inputs, [name]: value}));
     };
+    const handleChangeR = (event: React.ChangeEvent<HTMLInputElement>) =>
+        setValR(event.target.value as unknown as number);
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -23,42 +28,49 @@ const PointForm = ({pointInput, setPointInput, submitPoint}: IPointFormProps) =>
 
     return (
         <>
+            { hasError && <Alert type={"error"} content={error?.message} /> }
+
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
-                    <label>X: </label>
+                    <label className="main-label">X: </label>
                     { [-5,-4,-3,-2,-1,0,1,2,3].map(item => {
                         return (
                             <div className="form-check-inline" key={item}>
-                                <input className="form-check-input" type="radio" onChange={handleChange} name="x" value={item} />
+                                <input className={"form-check-input" + (hasError ? ' is-invalid' : '')}
+                                       type="radio"
+                                       onChange={handleChange}
+                                       name="x" value={item}
+                                       checked={item === pointInput.x} />
                                 <label className="form-check-label">{item}</label>
                             </div>
                         )})
                     }
-                    {hasError &&
-                    <div className="invalid-feedback">X is required</div>
-                    }
                 </div>
+
                 <div className="form-group">
-                    <label>Y: </label>
-                    <input type="text" name="y" value={pointInput.y} onChange={handleChange} className={'default-text-input' + (hasError && hasError ? ' is-invalid' : '')} />
-                    {hasError &&
-                    <div className="invalid-feedback">Username is required and should be in [-5;5]</div>
-                    }
+                    <label className="main-label">Y: </label>
+                    <input type="text" name="y"
+                           value={pointInput.y}
+                           onChange={handleChange}
+                           className={'default-text-input' + (hasError ? ' is-invalid' : '')} />
                 </div>
+
                 <div className="form-group">
-                    <label>R: </label>
+                    <label className="main-label">R: </label>
                     { [-5,-4,-3,-2,-1,0,1,2,3].map(item => {
                         return (
                             <div className="form-check-inline" key={item}>
-                                <input className="form-check-input" type="radio" onChange={handleChange} name="r" value={item} />
+                                <input className={"form-check-input" + (hasError ? ' is-invalid' : '')}
+                                       type="radio"
+                                       onChange={handleChangeR}
+                                       name="r" value={item}
+                                       checked={item === valR} />
                                 <label className="form-check-label">{item}</label>
                             </div>
                         )})
                     }
-                    {hasError &&
-                    <div className="invalid-feedback">R is required and should be in [-5;3]</div>
-                    }
                 </div>
+
                 <div className="form-group">
                     <button className="default-btn btn-primary btn-block" disabled={isFetching}>
                         Add

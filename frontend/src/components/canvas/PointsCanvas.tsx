@@ -3,15 +3,15 @@ import {IPointFormProps, IPointsArrProps} from "../../pages/HomePage";
 import {drawer, drawPoint} from "./CanvasDrawer";
 import {IPoint} from "../../models/IPoint";
 
-const PointsCanvas = ({points, submitPoint, pointInput}: IPointsArrProps & IPointFormProps) => {
+const PointsCanvas = ({points, submitPoint, valR, setValR}: IPointsArrProps & IPointFormProps) => {
 
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
     useEffect(() => {
         const canvas = canvasRef.current;
         if (!canvas) return;
-        drawer(canvas, pointInput.r, points);
-    }, [pointInput.r, points]);
+        drawer(canvas, valR, points);
+    }, [valR, points]);
 
 
     const onCanvasClick = (event: React.MouseEvent) => {
@@ -26,12 +26,12 @@ const PointsCanvas = ({points, submitPoint, pointInput}: IPointsArrProps & IPoin
             };
         }
 
-        let physicR = canvas.height / 3 / pointInput.r;
+        let physicR = canvas.height / 3 / valR;
         const clickedX = (getMousePos(event).X - canvas.width/2) / physicR;
         const clickedY = (-getMousePos(event).Y + canvas.height/2) / physicR;
 
-        const clickedPoint: IPoint = {x: clickedX, y: clickedY, r: pointInput.r};
-        drawPoint(canvas, clickedPoint, pointInput.r);
+        const clickedPoint: IPoint = {x: Number(clickedX.toFixed(3)), y: Number(clickedY.toFixed(3)), r: valR};
+        drawPoint(canvas, clickedPoint, valR);
         submitPoint(clickedPoint);
     }
 

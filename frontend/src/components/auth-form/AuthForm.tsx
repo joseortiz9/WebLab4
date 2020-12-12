@@ -43,18 +43,18 @@ const AuthForm = () => {
 
     return (
         <div>
-            { hasError && <Alert type={"error"} content={error?.message} status={400} /> }
+            { hasError && <Alert type={"error"} content={error?.message} /> }
 
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
-                    <label>Username</label>
+                    <label className="main-label">Username</label>
                     <input type="text" name="username" value={username} onChange={handleChange} className={'default-text-input' + ((hasLocalError || hasError) ? ' is-invalid' : '')} />
                     {hasLocalError &&
                     <div className="invalid-feedback">Username is required and should be more than 3 symbols</div>
                     }
                 </div>
                 <div className="form-group">
-                    <label>Password</label>
+                    <label className="main-label">Password</label>
                     <input type="password" name="password" value={password} onChange={handleChange} className={'default-text-input' + ((hasLocalError || hasError) ? ' is-invalid' : '')} />
                     {hasLocalError &&
                     <div className="invalid-feedback">Password is required and should be more than 3 symbols</div>

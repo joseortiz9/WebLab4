@@ -6,6 +6,10 @@
 @import "forms";
 @import "grid";
 
+body {
+  font-family: "Open Sans", "Helvetica Neue", sans-serif;
+}
+
 .jumbotron {
   padding: 1.3rem 1rem;
   margin-bottom: 2rem;

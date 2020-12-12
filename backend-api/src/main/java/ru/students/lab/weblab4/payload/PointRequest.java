@@ -7,12 +7,11 @@ import javax.validation.constraints.NotNull;
 
 public class PointRequest {
     @NotNull
-    @NotBlank
     @Min(-5)
     @Max(3)
     private Double x, r;
 
-    @NotNull @NotBlank
+    @NotNull
     @Min(-5)
     @Max(5)
     private Double y;
