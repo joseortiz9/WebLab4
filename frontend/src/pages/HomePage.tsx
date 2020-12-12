@@ -33,15 +33,13 @@ const HomePage = () => {
 
 
     const isValidPoint = (point: IPoint): boolean => {
-        let msg = "";
+        let msg = validatePoint(point);
         if (fetchedPoints.length > 0) {
-            const lastQuery = fetchedPoints[fetchedPoints.length - 1];
-            if (lastQuery.x === point.x && lastQuery.y === point.y && lastQuery.r === point.r) {
-                msg = "new point same as last added";
+            const lastPoint = fetchedPoints[fetchedPoints.length - 1];
+            if (lastPoint.x === point.x && lastPoint.y === point.y && lastPoint.r === point.r) {
+                msg = "new point is same as last added!";
             }
         }
-
-        msg = validatePoint(point);
         if (msg !== "") {
             dispatch({
                 type: POINT_REQUEST_FAILURE,
@@ -54,6 +52,11 @@ const HomePage = () => {
 
 
     function submitPoint(point: IPoint) {
+        point = {
+            x: Number(point.x),
+            y: Number(Number(point.y).toFixed(3)),
+            r: Number(valR)
+        };
         if (!isValidPoint(point))
             return;
         dispatch(addPoint(point, authSession));

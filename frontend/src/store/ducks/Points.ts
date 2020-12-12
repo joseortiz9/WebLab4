@@ -1,11 +1,9 @@
 import {IAuthSession} from "../../models/IAuthSession";
 import {AppState} from "./index";
 import {Dispatch} from "redux";
-import {api, authApi} from "../../utils/Api";
+import {authApi} from "../../utils/Api";
 import {Method} from "axios";
 import {IPoint, IPointFetched} from "../../models/IPoint";
-import history from "../../routes/history";
-import {ILogOut} from "./Auth";
 
 
 /* ---------------------- Types ------------------------- */
@@ -93,7 +91,8 @@ export default function reducer(state = INITIAL_STATE, action: PointsActions) {
             return {
                 ...state,
                 points: state.points.concat(action.payload),
-                fetching: false
+                fetching: false,
+                error: null
             }
         case POINT_FETCH_ALL_SUCCESS:
             return {
@@ -132,11 +131,9 @@ export const addPoint = (pointInputs: IPoint, authSession: IAuthSession | null) 
     dispatch(fetchStart());
     return authApi({method: "POST" as Method, requestUrl: 'points/add', authSession, data: pointInputs})
         .then(res => {
-            console.log(res);
             dispatch(addPointSuccess(res.data.object))
         })
         .catch(error => {
-            console.log(error)
             dispatch(fetchError(error));
         });
 };

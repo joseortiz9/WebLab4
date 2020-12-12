@@ -6,7 +6,7 @@ const PointValidator = (point: IPoint): string => {
     const max = (max: number, actual: number) => actual <= max;
 
     if (!isNumber(point.x)) {
-        return `X must be a number but is ${typeof point.x}`;
+        return `X must be a number!`;
     } else if (!min(-5, point.x)) {
         return `X must be bigger than -5 but is ${point.x}`;
     } else if (!max(3, point.x)) {
@@ -14,7 +14,7 @@ const PointValidator = (point: IPoint): string => {
     }
 
     if (!isNumber(point.y)) {
-        return `Y must be a number but is ${typeof point.y}`;
+        return `Y must be a number!`;
     } else if (!min(-5, point.y)) {
         return `Y must be bigger than -5 but is ${point.y}`;
     } else if (!max(5, point.y)) {
@@ -22,7 +22,7 @@ const PointValidator = (point: IPoint): string => {
     }
 
     if (!isNumber(point.r)) {
-        return `R must be a number but is ${typeof point.r}`;
+        return `R must be a number!`;
     } else if (!min(-5, point.r)) {
         return `R must be bigger than -5 but is ${point.r}`;
     } else if (!max(3, point.r)) {

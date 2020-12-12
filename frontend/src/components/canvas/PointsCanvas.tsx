@@ -37,7 +37,7 @@ const PointsCanvas = ({points, submitPoint, valR, setValR}: IPointsArrProps & IP
 
     return(
         <>
-            <canvas ref={canvasRef} onClick={onCanvasClick} style={{width: "100%", height: "40vh"}}/>
+            <canvas ref={canvasRef} onClick={onCanvasClick} style={{width: "100%", height: "30vh"}}/>
         </>
     );
 };

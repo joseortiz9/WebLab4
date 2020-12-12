@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {IPoint} from "../../models/IPoint";
 import {useSelector} from "react-redux";
 import {AppState} from "../../store/ducks";
@@ -12,14 +12,18 @@ const PointForm = ({valR, setValR, submitPoint}: IPointFormProps) => {
     const hasError = useSelector((state: AppState) => isError(state));
     const error = useSelector((state: AppState) => state.points.error);
     const isFetching = useSelector((state: AppState) => state.points.fetching);
-    const [pointInput, setPointInput] = useState<IPoint>({x: 0, y: 0, r: valR})
+    const [pointInput, setPointInput] = useState<IPoint>({x: 0, y: 0, r: valR});
+
+    useEffect(() => {
+
+    }, []);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
         setPointInput(inputs => ({...inputs, [name]: value}));
     };
     const handleChangeR = (event: React.ChangeEvent<HTMLInputElement>) =>
-        setValR(event.target.value as unknown as number);
+        setValR(Number(event.target.value));
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -39,8 +43,7 @@ const PointForm = ({valR, setValR, submitPoint}: IPointFormProps) => {
                                 <input className={"form-check-input" + (hasError ? ' is-invalid' : '')}
                                        type="radio"
                                        onChange={handleChange}
-                                       name="x" value={item}
-                                       checked={item === pointInput.x} />
+                                       name="x" value={item} />
                                 <label className="form-check-label">{item}</label>
                             </div>
                         )})
@@ -63,8 +66,7 @@ const PointForm = ({valR, setValR, submitPoint}: IPointFormProps) => {
                                 <input className={"form-check-input" + (hasError ? ' is-invalid' : '')}
                                        type="radio"
                                        onChange={handleChangeR}
-                                       name="r" value={item}
-                                       checked={item === valR} />
+                                       name="r" value={item} />
                                 <label className="form-check-label">{item}</label>
                             </div>
                         )})

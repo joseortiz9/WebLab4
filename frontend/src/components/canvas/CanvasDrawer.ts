@@ -33,25 +33,48 @@ export const drawer = (canvas: HTMLCanvasElement, valR: number, points: IPointFe
     canvasCtx.strokeStyle = "rgba(255,255,255,0.8)";
     canvasCtx.fillStyle = "rgba(255,255,255,0.8)";
 
-    //circle on the left up
-    canvasCtx.beginPath();
-    canvasCtx.moveTo(getPhysicalX(0), getPhysicalY(0));
-    canvasCtx.arc(getPhysicalX(0), getPhysicalY(0), R, 3*Math.PI/2, Math.PI, true);
-    canvasCtx.closePath();
-    canvasCtx.fill();
-    canvasCtx.stroke();
+    if (valR < 0) {
+        //circle on the right down
+        canvasCtx.beginPath();
+        canvasCtx.moveTo(getPhysicalX(0), getPhysicalY(0));
+        canvasCtx.arc(getPhysicalX(0), getPhysicalY(0), R, 0, Math.PI/2, false);
+        canvasCtx.closePath();
+        canvasCtx.fill();
+        canvasCtx.stroke();
 
-    //square in the left down
-    canvasCtx.fillRect(getPhysicalX(0), getPhysicalY(0), -R, R);
+        //square in the left down
+        canvasCtx.fillRect(getPhysicalX(0), getPhysicalY(0), R, -R);
 
-    //triangle
-    canvasCtx.beginPath();
-    canvasCtx.moveTo(getPhysicalX(0), getPhysicalY(0) - R);
-    canvasCtx.lineTo(getPhysicalX(0), getPhysicalY(0));
-    canvasCtx.lineTo(getPhysicalX(0)+R/2, getPhysicalY(0));
-    canvasCtx.closePath();
-    canvasCtx.fill();
-    canvasCtx.stroke();
+        //triangle
+        canvasCtx.beginPath();
+        canvasCtx.moveTo(getPhysicalX(0), getPhysicalY(0) + R);
+        canvasCtx.lineTo(getPhysicalX(0), getPhysicalY(0));
+        canvasCtx.lineTo(getPhysicalX(0)-R/2, getPhysicalY(0));
+        canvasCtx.closePath();
+        canvasCtx.fill();
+        canvasCtx.stroke();
+    }
+    else if(valR > 0) {
+        //circle on the left up
+        canvasCtx.beginPath();
+        canvasCtx.moveTo(getPhysicalX(0), getPhysicalY(0));
+        canvasCtx.arc(getPhysicalX(0), getPhysicalY(0), R, 3*Math.PI/2, Math.PI, true);
+        canvasCtx.closePath();
+        canvasCtx.fill();
+        canvasCtx.stroke();
+
+        //square in the left down
+        canvasCtx.fillRect(getPhysicalX(0), getPhysicalY(0), -R, R);
+
+        //triangle
+        canvasCtx.beginPath();
+        canvasCtx.moveTo(getPhysicalX(0), getPhysicalY(0) - R);
+        canvasCtx.lineTo(getPhysicalX(0), getPhysicalY(0));
+        canvasCtx.lineTo(getPhysicalX(0)+R/2, getPhysicalY(0));
+        canvasCtx.closePath();
+        canvasCtx.fill();
+        canvasCtx.stroke();
+    }
 
 
     //draw Axis
