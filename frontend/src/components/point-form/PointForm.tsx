@@ -12,7 +12,7 @@ const PointForm = ({valR, setValR, submitPoint}: IPointFormProps) => {
     const hasError = useSelector((state: AppState) => isError(state));
     const error = useSelector((state: AppState) => state.points.error);
     const isFetching = useSelector((state: AppState) => state.points.fetching);
-    const [pointInput, setPointInput] = useState<IPoint>({x: 0, y: 0, r: valR});
+    const [pointInput, setPointInput] = useState<IPoint>({x: NaN, y: 0, r: valR});
 
     useEffect(() => {
 

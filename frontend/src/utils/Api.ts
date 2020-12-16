@@ -1,5 +1,5 @@
 import axios, {AxiosPromise, Method} from 'axios';
-import {ApiHost, ApiVersion} from "./config";
+import {ApiHost} from "./config";
 import {IAuthSession} from "../models/IAuthSession";
 
 interface IApiProps {
@@ -16,7 +16,7 @@ export const api = (apiProps: IApiProps)
     const {method, requestUrl, headers, data} = apiProps;
     return axios({
         method: method,
-        url: `${ApiHost}/${ApiVersion}/${requestUrl}`,
+        url: `${ApiHost}/${requestUrl}`,
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json;charset=UTF-8',

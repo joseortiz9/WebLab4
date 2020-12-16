@@ -22,6 +22,7 @@ public class AuthEntryPointJwt implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException ex) throws IOException, ServletException {
         LOG.error("Unauthorized error: {}", ex.getMessage());
+        //LOG.error("Unauthorized error:", ex);
         //httpServletResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized! " + ex.getMessage());
 
         httpServletResponse.setContentType(MediaType.APPLICATION_JSON_VALUE);

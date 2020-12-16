@@ -19,6 +19,7 @@ const Navbar = () => {
                 {isAuthenticated ? (
                     <>
                         <li><NavLink to="/">Home</NavLink></li>
+                        <li className="nav-username">{authSession?.username}</li>
                         <li><a className="default-btn btn-navbar" href="#" onClick={() => dispatch(logout(authSession))}>Logout</a></li>
                     </>
                 ) : (

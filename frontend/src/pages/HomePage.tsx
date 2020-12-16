@@ -25,7 +25,7 @@ const HomePage = () => {
     const dispatch = useDispatch();
     const authSession = useSelector((state: AppState) => loggedUser(state));
     const fetchedPoints = useSelector((state: AppState) => state.points.points);
-    const [valR, setValR] = useState(1);
+    const [valR, setValR] = useState(NaN);
 
     useEffect(() => {
         dispatch(fetchAllPoints(authSession));
