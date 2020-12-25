@@ -1,7 +1,7 @@
 
 :root {
   --main-bg: rgba(163, 163, 163, 0.7);
-  --media-bg1: rgba(116, 48, 48, 0.8);
+  --media-bg1: rgba(40, 136, 103, 0.7);
   --media-bg2: rgb(154, 124, 68);
 }
 
@@ -21,14 +21,8 @@ body {
   border-radius: 0.3rem;
 }
 
-@media (min-width: 758px) {
-  .jumbotron {
-    padding: 2rem 2rem;
-  }
-}
-
 .jumbotron h1 {
-  font-size: 3rem;
+  font-size: 2rem;
   color: #003f65;
   font-family: 'sans-serif', cursive;
   font-weight: 700;
@@ -36,4 +30,13 @@ body {
   6px 6px 0 #efa032,
   10px 10px 0 #46b59b,
   15px 15px 0 #017e7f;
+}
+
+@media (min-width: 758px) {
+  .jumbotron {
+    padding: 2rem 2rem;
+    & h1 {
+      font-size: 2.8rem;
+    }
+  }
 }

@@ -33,6 +33,8 @@ public class PointController {
     public ResponseEntity<?> addPoint(@Valid @RequestBody PointRequest pointRequest) {
         PointEntity newPoint =
                 new PointEntity(pointRequest.getX(), pointRequest.getY(), pointRequest.getR(), getAuthUserAsEntity());
+        if (newPoint.getR() < 0)
+            return ResponseEntity.badRequest().body(new String("R can not be negative!"));
         PointEntity PointWithID = pointRepository.save(newPoint);
 
         return ResponseEntity.ok(new ObjWithMsgResponse<PointEntity>("PointEntity saved Successfully!", PointWithID));

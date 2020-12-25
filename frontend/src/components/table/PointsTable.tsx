@@ -26,7 +26,7 @@ const PointsTable = (points: IPointsArrProps) => {
                             <td>{point.x}</td>
                             <td>{point.y}</td>
                             <td>{point.r}</td>
-                            <td className={parsedRes}>{parsedRes}</td>
+                            <td className={parsedRes}><span>{parsedRes}</span></td>
                             <td>{parsedDate}</td>
                         </tr>
                     )

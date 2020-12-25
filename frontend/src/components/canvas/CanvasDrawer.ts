@@ -33,28 +33,7 @@ export const drawer = (canvas: HTMLCanvasElement, valR: number, points: IPointFe
     canvasCtx.strokeStyle = "rgba(255,255,255,0.8)";
     canvasCtx.fillStyle = "rgba(255,255,255,0.8)";
 
-    if (valR < 0) {
-        //circle on the right down
-        canvasCtx.beginPath();
-        canvasCtx.moveTo(getPhysicalX(0), getPhysicalY(0));
-        canvasCtx.arc(getPhysicalX(0), getPhysicalY(0), R, 0, Math.PI/2, false);
-        canvasCtx.closePath();
-        canvasCtx.fill();
-        canvasCtx.stroke();
-
-        //square in the left down
-        canvasCtx.fillRect(getPhysicalX(0), getPhysicalY(0), R, -R);
-
-        //triangle
-        canvasCtx.beginPath();
-        canvasCtx.moveTo(getPhysicalX(0), getPhysicalY(0) + R);
-        canvasCtx.lineTo(getPhysicalX(0), getPhysicalY(0));
-        canvasCtx.lineTo(getPhysicalX(0)-R/2, getPhysicalY(0));
-        canvasCtx.closePath();
-        canvasCtx.fill();
-        canvasCtx.stroke();
-    }
-    else if(valR > 0) {
+    if(valR > 0) {
         //circle on the left up
         canvasCtx.beginPath();
         canvasCtx.moveTo(getPhysicalX(0), getPhysicalY(0));
@@ -64,9 +43,13 @@ export const drawer = (canvas: HTMLCanvasElement, valR: number, points: IPointFe
         canvasCtx.stroke();
 
         //square in the left down
+        canvasCtx.strokeStyle = "rgba(29,75,161,0.8)";
+        canvasCtx.fillStyle = "rgba(29,75,161,0.8)";
         canvasCtx.fillRect(getPhysicalX(0), getPhysicalY(0), -R, R);
 
         //triangle
+        canvasCtx.strokeStyle = "rgba(144,130,55,0.8)";
+        canvasCtx.fillStyle = "rgba(144,130,55,0.8)";
         canvasCtx.beginPath();
         canvasCtx.moveTo(getPhysicalX(0), getPhysicalY(0) - R);
         canvasCtx.lineTo(getPhysicalX(0), getPhysicalY(0));
@@ -74,8 +57,9 @@ export const drawer = (canvas: HTMLCanvasElement, valR: number, points: IPointFe
         canvasCtx.closePath();
         canvasCtx.fill();
         canvasCtx.stroke();
+    } else if (valR < 0) {
+        valR = NaN;
     }
-
 
     //draw Axis
     const limitMargin = 15;

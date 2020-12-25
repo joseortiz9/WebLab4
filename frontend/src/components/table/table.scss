@@ -6,10 +6,20 @@
   color: #212529;
   text-align: center;
   .inside {
-    color: green;
+    color: white;
+    span {
+      background-color: green;
+      padding: 4px 3px;
+      border-radius: 25px;
+    }
   }
   .outside {
-    color: red;
+    color: white;
+    span {
+      background-color: red;
+      padding: 3px 5px;
+      border-radius: 25px;
+    }
   }
 }
 

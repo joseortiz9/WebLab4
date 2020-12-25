@@ -23,8 +23,8 @@ const PointValidator = (point: IPoint): string => {
 
     if (!isNumber(point.r)) {
         return `R must be a number!`;
-    } else if (!min(-5, point.r)) {
-        return `R must be bigger than -5 but is ${point.r}`;
+    } else if (!min(0, point.r)) {
+        return `R must be positive! but is ${point.r}`;
     } else if (!max(3, point.r)) {
         return `R must be smaller than 3 but is ${point.r}`;
     }

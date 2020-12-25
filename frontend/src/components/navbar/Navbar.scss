@@ -10,6 +10,11 @@ nav {
   justify-content: space-between;
   box-shadow: 0 0 25px 0 black;
   z-index: 1;
+  box-sizing: border-box;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
   * {
     display: inline;
   }
