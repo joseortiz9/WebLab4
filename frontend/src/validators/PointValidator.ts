@@ -1,10 +1,7 @@
 import {IPoint} from "../models/IPoint";
+import {isNumber, max, min} from "./validators";
 
 const PointValidator = (point: IPoint): string => {
-    const isNumber = (obj: any) => !isNaN(parseFloat(obj));
-    const min = (min: number, actual: number) => actual >= min;
-    const max = (max: number, actual: number) => actual <= max;
-
     if (!isNumber(point.x)) {
         return `X must be a number!`;
     } else if (!min(-5, point.x)) {

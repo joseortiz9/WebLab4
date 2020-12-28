@@ -129,7 +129,7 @@ export const fetchAllPoints = (authSession: IAuthSession | null) => (dispatch: D
 
 export const addPoint = (pointInputs: IPoint, authSession: IAuthSession | null) => (dispatch: Dispatch<PointsActions>) => {
     dispatch(fetchStart());
-    return authApi({method: "POST" as Method, requestUrl: 'points/add', authSession, data: pointInputs})
+    return authApi({method: "POST" as Method, requestUrl: 'points', authSession, data: pointInputs})
         .then(res => {
             dispatch(addPointSuccess(res.data.object))
         })

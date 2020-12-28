@@ -29,7 +29,7 @@ public class PointController {
         return ResponseEntity.ok(pointRepository.findByUser(getAuthUserAsEntity()));
     }
 
-    @PostMapping("/points/add")
+    @PostMapping("/points")
     public ResponseEntity<?> addPoint(@Valid @RequestBody PointRequest pointRequest) {
         PointEntity newPoint =
                 new PointEntity(pointRequest.getX(), pointRequest.getY(), pointRequest.getR(), getAuthUserAsEntity());
@@ -37,7 +37,7 @@ public class PointController {
             return ResponseEntity.badRequest().body(new String("R can not be negative!"));
         PointEntity PointWithID = pointRepository.save(newPoint);
 
-        return ResponseEntity.ok(new ObjWithMsgResponse<PointEntity>("PointEntity saved Successfully!", PointWithID));
+    return ResponseEntity.ok(new ObjWithMsgResponse<PointEntity>("PointEntity saved Successfully!", PointWithID));
     }
 
     //TODO structure it better to separate the point and user logic
