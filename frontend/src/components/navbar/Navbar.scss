@@ -43,7 +43,7 @@ nav {
     }
     &.responsive a {
       float: none;
-      display: block;
+      display: inline-flex;
       text-align: left;
     }
   }

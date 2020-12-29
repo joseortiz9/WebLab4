@@ -28,7 +28,7 @@ const Navbar = () => {
                     <NavLink to="/login">Login</NavLink>
                 </>
             )}
-            <a href="javascript:void(0);" className="toggler-responsive" onClick={() => toggleResponsive()}>
+            <a href="#" className="toggler-responsive" onClick={() => toggleResponsive()}>
                 Nav
             </a>
         </nav>
