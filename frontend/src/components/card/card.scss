@@ -9,4 +9,9 @@
   h1 {
     color: white;
   }
+  @media screen and (max-width: 758px) {
+    & {
+      width: 80%;
+    }
+  }
 }

@@ -8,7 +8,7 @@ type ICardProps = {
 const Card: FC<ICardProps> = ({children, title}) => {
     return (
         <div className="card">
-            <h1 className="text-align-center">{title}</h1>
+            {title ? <h1 className="text-align-center">{title}</h1> : "" }
             {children}
         </div>
     );

@@ -36,7 +36,7 @@ const PointForm = ({valR, setValR, submitPoint}: IPointFormProps) => {
 
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
-                    <label className="main-label">X: </label>
+                    <label className="main-label text-white"><b>X: </b></label>
                     { [-5,-4,-3,-2,-1,0,1,2,3].map(item => {
                         return (
                             <div className="form-check-inline" key={item}>
@@ -51,7 +51,7 @@ const PointForm = ({valR, setValR, submitPoint}: IPointFormProps) => {
                 </div>
 
                 <div className="form-group">
-                    <label className="main-label">Y: </label>
+                    <label className="main-label text-white"><b>Y: </b></label>
                     <input type="text" name="y"
                            value={pointInput.y}
                            onChange={handleChange}
@@ -59,7 +59,7 @@ const PointForm = ({valR, setValR, submitPoint}: IPointFormProps) => {
                 </div>
 
                 <div className="form-group">
-                    <label className="main-label">R: </label>
+                    <label className="main-label text-white"><b>R: </b></label>
                     { [-5,-4,-3,-2,-1,0,1,2,3].map(item => {
                         return (
                             <div className="form-check-inline" key={item}>

@@ -1,13 +1,29 @@
 .form-group {
   margin-bottom: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   label.main-label {
     margin-right: 0.8rem;
+    @media screen and (max-width: 757px) {
+      & {
+        font-size: 1.3rem;
+      }
+    }
   }
 }
 .form-check-inline {
-  display: inline-block;
+  display: inline-flex;
   margin-right: 1rem;
   margin-bottom: 0.5rem;
+  align-items: center;
+  @media screen and (max-width: 757px) {
+    & {
+      font-size: 1.3rem;
+      margin-right: 1.8rem;
+      margin-bottom: 1.5rem;
+    }
+  }
   & .form-check-input ~ .valid-feedback {
     margin-left: 0.5em;
   }
@@ -34,6 +50,12 @@
   -webkit-print-color-adjust: exact;
   color-adjust: exact;
   transition: background-color 0.15s ease-in-out, background-position 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  @media screen and (max-width: 757px) {
+    & {
+      width: 2rem;
+      height: 2rem;
+    }
+  }
 }
 .form-check-input[type=radio] {
   border-radius: 50%;
@@ -87,9 +109,16 @@
   color: #495057;
   background-color: #fff;
   background-clip: padding-box;
+  width: 100%;
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  @media screen and (max-width: 757px) {
+    & {
+      padding: 0.6rem 1rem;
+      font-size: 1.2rem;
+    }
+  }
 }
 
 .default-text-input::-ms-expand {
@@ -152,6 +181,13 @@
   line-height: 1.5;
   border-radius: 0.25rem;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  @media screen and (max-width: 757px) {
+    & {
+      display: block;
+      width: 100%;
+      font-size: 1.2rem;
+    }
+  }
 }
 .default-btn:hover {
   color: #212529;

@@ -3,6 +3,11 @@ import {IPointFormProps, IPointsArrProps} from "../../pages/HomePage";
 import {drawer, drawPoint} from "./CanvasDrawer";
 import {IPoint} from "../../models/IPoint";
 
+const canvasStyle = {
+    width: "100%",
+    height: "30vh",
+}
+
 const PointsCanvas = ({points, submitPoint, valR, setValR}: IPointsArrProps & IPointFormProps) => {
 
     const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -37,7 +42,7 @@ const PointsCanvas = ({points, submitPoint, valR, setValR}: IPointsArrProps & IP
 
     return(
         <>
-            <canvas ref={canvasRef} onClick={onCanvasClick} style={{width: "100%", height: "30vh"}}/>
+            <canvas ref={canvasRef} onClick={onCanvasClick} style={canvasStyle} />
         </>
     );
 };
