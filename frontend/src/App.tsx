@@ -7,6 +7,8 @@ import "./styles/global.scss"
 import {useDispatch, useSelector} from "react-redux";
 import {checkSession, isLoggedIn, loggedUser} from "./store/ducks/Auth";
 import {AppState} from "./store/ducks";
+import {ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
     const dispatch = useDispatch();
@@ -22,6 +24,7 @@ const App = () => {
        <Router history={history}>
            <Navbar />
            <Routes />
+           <ToastContainer />
        </Router>
     );
 }

@@ -12,6 +12,7 @@ import ru.students.lab.weblab4.payload.PointRequest;
 import ru.students.lab.weblab4.repositories.PointRepository;
 import ru.students.lab.weblab4.repositories.UserRepository;
 import ru.students.lab.weblab4.security.services.UserDetailsServiceImpl;
+import ru.students.lab.weblab4.websockets.NotificationDispatcher;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -23,6 +24,7 @@ public class PointController {
 
     @Autowired private PointRepository pointRepository;
     @Autowired private UserRepository userRepository;
+    @Autowired private NotificationDispatcher dispatcher;
 
     @GetMapping("/points")
     public ResponseEntity<List<PointEntity>> getAllPoints() {
@@ -35,9 +37,11 @@ public class PointController {
                 new PointEntity(pointRequest.getX(), pointRequest.getY(), pointRequest.getR(), getAuthUserAsEntity());
         if (newPoint.getR() < 0)
             return ResponseEntity.badRequest().body(new String("R can not be negative!"));
-        PointEntity PointWithID = pointRepository.save(newPoint);
 
-    return ResponseEntity.ok(new ObjWithMsgResponse<PointEntity>("PointEntity saved Successfully!", PointWithID));
+        PointEntity PointWithID = pointRepository.save(newPoint);
+        dispatcher.dispatch(newPoint);
+
+        return ResponseEntity.ok(new ObjWithMsgResponse<PointEntity>("PointEntity saved Successfully!", PointWithID));
     }
 
     //TODO structure it better to separate the point and user logic
