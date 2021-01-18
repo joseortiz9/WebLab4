@@ -32,7 +32,7 @@ public class WebSocketInterceptorConfig implements WebSocketMessageBrokerConfigu
         registration.interceptors(new ChannelInterceptor() {
             @Override
             public Message<?> preSend(Message<?> message, MessageChannel channel) {
-                System.out.println("enter to the present interceptor " + message.getHeaders());
+                System.out.println("Received request in filter: " + message.getHeaders());
                 StompHeaderAccessor accessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
 
                 if (StompCommand.CONNECT.equals(accessor.getCommand())) {

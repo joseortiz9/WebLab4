@@ -24,7 +24,7 @@ const App = () => {
        <Router history={history}>
            <Navbar />
            <Routes />
-           <ToastContainer />
+           <ToastContainer newestOnTop />
        </Router>
     );
 }

@@ -59,29 +59,29 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests().antMatchers("/api/auth/login", "/api/auth/register", "/points_notification").permitAll()
+                .authorizeRequests().antMatchers("/api/auth/login", "/api/auth/register", "/points_notification/**").permitAll()
                 .anyRequest().authenticated().and().httpBasic();
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
 
-    /**
-     * The cors() method will add the Spring-provided CorsFilter to
-     * the application context which in turn bypasses the authorization
-     * checks for OPTIONS requests.
-     * */
-    @Bean
-    public CorsFilter corsFilter() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration config = new CorsConfiguration();
-        config.addAllowedOrigin("https://se.ifmo.ru");
-        config.addAllowedOrigin("http://localhost:3000");
-        config.addAllowedHeader("*");
-        config.addAllowedMethod("*");
-        config.addExposedHeader("Authorization");
-        config.addExposedHeader("Content-Type");
-        source.registerCorsConfiguration("/**", config);
-        return new CorsFilter(source);
-    }
+//    /**
+//     * The cors() method will add the Spring-provided CorsFilter to
+//     * the application context which in turn bypasses the authorization
+//     * checks for OPTIONS requests.
+//     * */
+//    @Bean
+//    public CorsFilter corsFilter() {
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        CorsConfiguration config = new CorsConfiguration();
+//        config.addAllowedOrigin("https://se.ifmo.ru");
+//        config.addAllowedOrigin("http://localhost:3000");
+//        config.addAllowedHeader("*");
+//        config.addAllowedMethod("*");
+//        config.addExposedHeader("Authorization");
+//        config.addExposedHeader("Content-Type");
+//        source.registerCorsConfiguration("/**", config);
+//        return new CorsFilter(source);
+//    }
 }

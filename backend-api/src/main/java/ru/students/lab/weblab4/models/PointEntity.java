@@ -64,6 +64,10 @@ public class PointEntity implements Serializable {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MMM/yyyy 'at' HH:mm:ss a");
         return createTime.format(formatter);
     }
+    @JsonIgnore
+    public String getOwnerUsername() {
+        return user.getUsername();
+    }
 
     public Long getId() {
         return id;

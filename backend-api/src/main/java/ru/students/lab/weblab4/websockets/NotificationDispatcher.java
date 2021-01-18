@@ -9,6 +9,7 @@ import org.springframework.messaging.simp.SimpMessageType;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
+import ru.students.lab.weblab4.models.PointEntity;
 import ru.students.lab.weblab4.payload.ObjWithMsgResponse;
 
 import java.io.Serializable;
@@ -19,11 +20,10 @@ import java.util.Set;
 public class NotificationDispatcher {
     private static final Logger LOG = LoggerFactory.getLogger(NotificationDispatcher.class);
 
-    @Autowired
-    private SimpMessagingTemplate template;
+    @Autowired private SimpMessagingTemplate template;
     private final Set<String> listeners = new HashSet<>();
 
-    public <T extends Serializable> void dispatch(T addedObj) {
+    public void dispatch(PointEntity addedPoint) {
         for (String listener : listeners) {
             LOG.info("Sending notification to " + listener);
 
@@ -34,7 +34,7 @@ public class NotificationDispatcher {
             template.convertAndSendToUser(
                     listener,
                     "/topic/item",
-                    new ObjWithMsgResponse<T>("Point added by: " + listener, addedObj),
+                    new ObjWithMsgResponse<PointEntity>("Point added by " + addedPoint.getOwnerUsername() + ": ", addedPoint),
                     headerAccessor.getMessageHeaders());
         }
     }

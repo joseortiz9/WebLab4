@@ -24,7 +24,7 @@ public class PointController {
 
     @Autowired private PointRepository pointRepository;
     @Autowired private UserRepository userRepository;
-    @Autowired private NotificationDispatcher dispatcher;
+    @Autowired private NotificationDispatcher newPointNotificationDispatcher;
 
     @GetMapping("/points")
     public ResponseEntity<List<PointEntity>> getAllPoints() {
@@ -39,7 +39,7 @@ public class PointController {
             return ResponseEntity.badRequest().body(new String("R can not be negative!"));
 
         PointEntity PointWithID = pointRepository.save(newPoint);
-        dispatcher.dispatch(newPoint);
+        newPointNotificationDispatcher.dispatch(newPoint);
 
         return ResponseEntity.ok(new ObjWithMsgResponse<PointEntity>("PointEntity saved Successfully!", PointWithID));
     }

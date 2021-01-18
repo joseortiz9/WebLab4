@@ -14,7 +14,6 @@ public class NotificationsController {
     @MessageMapping("/start")
     public void start(StompHeaderAccessor stompHeaderAccessor) {
         dispatcher.add(stompHeaderAccessor.getSessionId());
-        System.out.println("GOT a session! " + stompHeaderAccessor.getSessionId());
     }
 
     @MessageMapping("/stop")
