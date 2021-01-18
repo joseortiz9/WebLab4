@@ -3,7 +3,7 @@ import history from "./routes/history";
 import {Router} from "react-router";
 import Navbar from "./components/navbar/Navbar";
 import Routes from "./routes/Routes";
-import "./styles/global.scss"
+import "./styles/global.scss";
 import {useDispatch, useSelector} from "react-redux";
 import {checkSession, isLoggedIn, loggedUser} from "./store/ducks/Auth";
 import {AppState} from "./store/ducks";

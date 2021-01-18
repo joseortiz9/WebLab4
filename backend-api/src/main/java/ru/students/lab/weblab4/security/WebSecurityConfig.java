@@ -22,6 +22,8 @@ import ru.students.lab.weblab4.security.jwt.AuthEntryPointJwt;
 import ru.students.lab.weblab4.security.jwt.AuthTokenFilter;
 import ru.students.lab.weblab4.security.services.UserDetailsServiceImpl;
 
+import java.util.Arrays;
+
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -57,7 +59,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests().antMatchers("/api/auth/login", "/api/auth/register").permitAll()
+                .authorizeRequests().antMatchers("/api/auth/login", "/api/auth/register", "/points_notification").permitAll()
                 .anyRequest().authenticated().and().httpBasic();
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
@@ -73,7 +75,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
-        config.addAllowedOrigin("*");
+        config.addAllowedOrigin("https://se.ifmo.ru");
+        config.addAllowedOrigin("http://localhost:3000");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         config.addExposedHeader("Authorization");

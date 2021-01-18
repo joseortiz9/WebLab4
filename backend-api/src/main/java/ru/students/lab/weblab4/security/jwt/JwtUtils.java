@@ -8,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
+import ru.students.lab.weblab4.exceptions.JwtTokenValidationException;
 
 import java.util.Date;
 
@@ -48,22 +49,19 @@ public class JwtUtils {
     }
 
 
-    public boolean validateJwtToken(String authToken) {
+    public void validateJwtToken(String authToken) {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
-            return true;
         } catch (SignatureException e) {
-            LOG.error("Invalid JWT signature: {}", e.getMessage());
+            throw new JwtTokenValidationException("Invalid JWT signature: " + e.getMessage(), e);
         } catch (MalformedJwtException e) {
-            LOG.error("Invalid JWT token: {}", e.getMessage());
+            throw new JwtTokenValidationException("Invalid JWT token: " + e.getMessage(), e);
         } catch (ExpiredJwtException e) {
-            LOG.error("JWT token is expired: {}", e.getMessage());
+            throw new JwtTokenValidationException("JWT token is expired: " + e.getMessage(), e);
         } catch (UnsupportedJwtException e) {
-            LOG.error("JWT token is unsupported: {}", e.getMessage());
+            throw new JwtTokenValidationException("JWT token is unsupported: " + e.getMessage(), e);
         } catch (IllegalArgumentException e) {
-            LOG.error("JWT claims string is empty: {}", e.getMessage());
+            throw new JwtTokenValidationException("JWT claims string is empty: " + e.getMessage(), e);
         }
-
-        return false;
     }
 }

@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, {useState} from "react";
 import {NavLink} from "react-router-dom";
 import "./Navbar.scss";
 import {useDispatch, useSelector} from "react-redux";

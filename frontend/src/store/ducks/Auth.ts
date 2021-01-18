@@ -145,7 +145,10 @@ export const authRequest = (requestTypeUrl: string, loginInputs: IAuthFormProps)
 export const checkSession = (authSession: IAuthSession | null) => (dispatch: Dispatch<AuthActions>) => {
     dispatch(fetchStart());
     return authApi({method: "POST" as Method, requestUrl: 'auth/check_session', authSession})
-        .catch(error => {
+        .then(() => {
+            if (authSession == null) throw new Error("problem checking the session, refresh the page!");
+            dispatch(fetchSuccess(authSession));
+        }).catch(error => {
             if (error.response) error.message = error.response.data;
             dispatch(fetchError(error));
             dispatch(logOut());

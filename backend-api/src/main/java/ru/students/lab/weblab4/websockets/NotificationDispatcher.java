@@ -10,7 +10,6 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 import ru.students.lab.weblab4.payload.ObjWithMsgResponse;
-import ru.students.lab.weblab4.security.jwt.AuthEntryPointJwt;
 
 import java.io.Serializable;
 import java.util.HashSet;
