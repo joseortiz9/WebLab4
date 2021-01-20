@@ -20,10 +20,12 @@ class SocketManager {
             this.stompClient?.subscribe(NEW_NOTIFICATION_PATH, (response) => {
                 console.log("received data from socket: " + response);
                 if (response.body)
-                    showNotification(response.body)
+                    showNotification(response.body);
             });
+        }, (error) => {
+            showNotification("")
         });
-        console.log(this.stompClient.ws)
+        console.log(this.stompClient.ws);
     }
 
     stopListening() {

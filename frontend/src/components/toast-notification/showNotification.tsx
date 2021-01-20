@@ -9,15 +9,28 @@ export type IReceivedNotification = {
 }
 
 export const showNotification = (responseBody: string) => {
-    const parsedBody = JSON.parse(responseBody) as IReceivedNotification;
-    toast.success(<NotificationContent content={parsedBody} />, {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: false,
-        progress: undefined,
-        transition: Flip
-    });
+    if (responseBody === "") {
+        toast.error("Connection Error! please refresh the site :'(", {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: false,
+            progress: undefined,
+            transition: Flip
+        });
+    } else {
+        const parsedBody = JSON.parse(responseBody) as IReceivedNotification;
+        toast.success(<NotificationContent content={parsedBody} />, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: false,
+            progress: undefined,
+            transition: Flip
+        });
+    }
 };
