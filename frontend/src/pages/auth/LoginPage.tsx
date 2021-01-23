@@ -6,6 +6,8 @@ import {isError, isLoggedIn} from "../../store/ducks/Auth";
 import history from "../../routes/history";
 import Alert from "../../components/alert/Alert";
 import Card from "../../components/card/Card";
+import {Jumbotron} from "../../styles/Global.styles";
+import {FlexContainer, H1Centered} from "../../styles/Grid.styles";
 
 const LoginPage = () => {
     const isAuthenticated = useSelector((state: AppState) => isLoggedIn(state));
@@ -16,17 +18,17 @@ const LoginPage = () => {
                 history.push("/") :
                 (
                     <>
-                        <div className="jumbotron">
-                            <h1 className="text-align-center">
+                        <Jumbotron>
+                            <H1Centered>
                                 Tarasova Natasha - Ortiz Jose <br/> - P3232 - Var. 2832
-                            </h1>
-                        </div>
+                            </H1Centered>
+                        </Jumbotron>
 
-                        <div className="flex-container">
+                        <FlexContainer>
                             <Card title="WELCOME!">
                                 <AuthForm />
                             </Card>
-                        </div>
+                        </FlexContainer>
                     </>
                 )
         }

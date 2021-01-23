@@ -1,10 +1,10 @@
 import React from "react";
 import {IPointsArrProps} from "../../pages/HomePage";
-import "./table.scss";
+import {StylishTable} from "./Table.styles";
 
 const PointsTable = (points: IPointsArrProps) => {
     return(
-        <table className="default-table table-striped table-hover">
+        <StylishTable>
             <thead>
                 <tr>
                     <th>ID</th>
@@ -33,7 +33,7 @@ const PointsTable = (points: IPointsArrProps) => {
                 })
             }
             </tbody>
-        </table>
+        </StylishTable>
     );
 };
 

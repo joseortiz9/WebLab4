@@ -1,5 +1,5 @@
 import React, {FC} from "react";
-import "./card.scss";
+import {CardContainer} from "./Card.styles";
 
 type ICardProps = {
     title?: string
@@ -7,10 +7,10 @@ type ICardProps = {
 
 const Card: FC<ICardProps> = ({children, title}) => {
     return (
-        <div className="card">
+        <CardContainer>
             {title ? <h1 className="text-align-center">{title}</h1> : "" }
             {children}
-        </div>
+        </CardContainer>
     );
 };
 

@@ -1,5 +1,5 @@
 import React from "react";
-import "./alert.scss";
+import {AlertContainer} from "./Alert.styles";
 
 interface IAlert {
     type: "success" | "info" | "error"
@@ -8,10 +8,10 @@ interface IAlert {
 
 const Alert = ({type, content}: IAlert) => {
     return (
-        <div className={"alert " + type}>
+        <AlertContainer className={"alert " + type}>
             <span className="title-alert">{type}: </span>
             <span className="content-alert">{content}</span>
-        </div>
+        </AlertContainer>
     );
 };
 

@@ -5,6 +5,8 @@ import {AppState} from "../../store/ducks";
 import {isError} from "../../store/ducks/Points";
 import {IPointFormProps} from "../../pages/HomePage";
 import Alert from "../alert/Alert";
+import {DefaultButton, FormCompContainer} from "../../styles/Forms.styles";
+import {LabelWhite} from "../../styles/Global.styles";
 
 
 const PointForm = ({valR, setValR, submitPoint}: IPointFormProps) => {
@@ -35,8 +37,8 @@ const PointForm = ({valR, setValR, submitPoint}: IPointFormProps) => {
             { hasError && <Alert type={"error"} content={error?.message} /> }
 
             <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label className="main-label text-white"><b>X: </b></label>
+                <FormCompContainer className="form-group">
+                    <LabelWhite className="main-label text-white"><b>X: </b></LabelWhite>
                     { [-5,-4,-3,-2,-1,0,1,2,3].map(item => {
                         return (
                             <div className="form-check-inline" key={item}>
@@ -48,18 +50,18 @@ const PointForm = ({valR, setValR, submitPoint}: IPointFormProps) => {
                             </div>
                         )})
                     }
-                </div>
+                </FormCompContainer>
 
-                <div className="form-group">
-                    <label className="main-label text-white"><b>Y: </b></label>
+                <FormCompContainer className="form-group">
+                    <LabelWhite className="main-label text-white"><b>Y: </b></LabelWhite>
                     <input type="text" name="y"
                            value={pointInput.y}
                            onChange={handleChange}
                            className={'default-text-input' + (hasError ? ' is-invalid' : '')} />
-                </div>
+                </FormCompContainer>
 
-                <div className="form-group">
-                    <label className="main-label text-white"><b>R: </b></label>
+                <FormCompContainer className="form-group">
+                    <LabelWhite className="main-label text-white"><b>R: </b></LabelWhite>
                     { [-5,-4,-3,-2,-1,0,1,2,3].map(item => {
                         return (
                             <div className="form-check-inline" key={item}>
@@ -71,13 +73,13 @@ const PointForm = ({valR, setValR, submitPoint}: IPointFormProps) => {
                             </div>
                         )})
                     }
-                </div>
+                </FormCompContainer>
 
-                <div className="form-group">
-                    <button className="default-btn btn-primary btn-block" disabled={isFetching}>
+                <FormCompContainer className="form-group">
+                    <DefaultButton className="default-btn btn-primary btn-block" disabled={isFetching}>
                         Add
-                    </button>
-                </div>
+                    </DefaultButton>
+                </FormCompContainer>
             </form>
         </>
     );

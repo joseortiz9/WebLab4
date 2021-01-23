@@ -4,10 +4,13 @@ import reportWebVitals from './reportWebVitals';
 import {Provider} from "react-redux";
 import store from "./store";
 import App from "./App";
+import CustomThemeProvider from "./contexts/CustomThemeProvider";
 
 ReactDOM.render(
     <Provider store={store}>
-        <App />
+        <CustomThemeProvider>
+            <App />
+        </CustomThemeProvider>
     </Provider>,
   document.getElementById('root')
 );

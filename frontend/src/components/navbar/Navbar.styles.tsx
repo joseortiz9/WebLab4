@@ -1,5 +1,6 @@
-nav {
-  background-color: white;
+import styled from 'styled-components'
+export const NavbarContainer = styled.nav`
+  background-color: ${props => props.theme.background};
   position: fixed;
   padding: 0 30px;
   top: 0;
@@ -9,7 +10,7 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 0 25px 0 black;
+  box-shadow: 0 0 25px 0 ${props => props.theme.text};
   z-index: 1;
   box-sizing: border-box;
   overflow-x: auto;
@@ -20,15 +21,15 @@ nav {
     display: inline;
   }
   a {
-    color: black;
+    color: ${props => props.theme.text};
     text-decoration: none;
     &.active {
-      color: red;
+      color: ${props => props.theme.textMain};
       font-weight: bold;
     }
   }
   & .nav-username {
-    color: green;
+    color: ${props => props.theme.text4};
   }
   .display-right {
     align-content: end;
@@ -36,15 +37,18 @@ nav {
   .toggler-responsive {
     display: none;
   }
+  b {
+  color: ${props => props.theme.textMain};
+  }
   @media screen and (max-width: 757px) {
     & :not(:first-child) {display: none;}
     & .toggler-responsive {
       display: block;
     }
-    &.responsive a {
-      float: none;
-      display: inline-flex;
-      text-align: left;
-    }
+    //&.responsive a, &.responsive select{
+    //  float: none;
+    //  display: inline-flex;
+    //  text-align: left;
+    //}
   }
-}
+`

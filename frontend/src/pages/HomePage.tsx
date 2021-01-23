@@ -9,6 +9,7 @@ import {IPoint, IPointFetched} from "../models/IPoint";
 import PointsCanvas from "../components/canvas/PointsCanvas";
 import Card from "../components/card/Card";
 import {validatePoint} from "../validators";
+import {FlexContainer} from "../styles/Grid.styles";
 
 
 export interface IPointsArrProps {
@@ -65,7 +66,7 @@ const HomePage = () => {
 
     return(
         <>
-            <div className="flex-container">
+            <FlexContainer>
                 <Card title="Create a point!">
                     <PointForm valR={valR} setValR={setValR} submitPoint={submitPoint} />
                 </Card>
@@ -75,7 +76,7 @@ const HomePage = () => {
                                   submitPoint={submitPoint}
                                   points={fetchedPoints} />
                 </Card>
-            </div>
+            </FlexContainer>
             <PointsTable points={fetchedPoints} />
         </>
     );

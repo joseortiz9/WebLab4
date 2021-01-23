@@ -5,6 +5,8 @@ import {AppState} from "../../store/ducks";
 import Alert from "../alert/Alert";
 import {validateUser} from "../../validators";
 import {IUser} from "../../models/IUser";
+import {DefaultButton, FormCompContainer} from "../../styles/Forms.styles";
+import {FlexContainer} from "../../styles/Grid.styles";
 
 
 const AuthForm = () => {
@@ -45,36 +47,36 @@ const AuthForm = () => {
             { hasError && <Alert type={"error"} content={error?.message} /> }
 
             <form onSubmit={handleSubmit}>
-                <div className="form-group">
+                <FormCompContainer className="form-group">
                     <label className="main-label">Username</label>
                     <input type="text" name="username"
                            value={username} onChange={handleChange}
                            className={'default-text-input' + (hasError ? ' is-invalid' : '')} />
-                </div>
-                <div className="form-group">
+                </FormCompContainer>
+                <FormCompContainer className="form-group">
                     <label className="main-label">Password</label>
                     <input type="password" name="password"
                            value={password} onChange={handleChange}
                            className={'default-text-input' + (hasError ? ' is-invalid' : '')} />
-                </div>
-                <div className="form-group">
-                    <div className="flex-container">
-                        <button className="default-btn btn-primary"
+                </FormCompContainer>
+                <FormCompContainer className="form-group">
+                    <FlexContainer>
+                        <DefaultButton className="default-btn btn-primary"
                                 disabled={isFetching}
                                 data-typerequest="login"
                                 onClick={changeRequestType.bind(this)}
                         >
                             Login
-                        </button>
-                        <button className="default-btn btn-secondary"
+                        </DefaultButton>
+                        <DefaultButton className="default-btn btn-secondary"
                                 disabled={isFetching}
                                 data-typerequest="register"
                                 onClick={changeRequestType.bind(this)}
                         >
                             Register
-                        </button>
-                    </div>
-                </div>
+                        </DefaultButton>
+                    </FlexContainer>
+                </FormCompContainer>
             </form>
         </div>
     );
